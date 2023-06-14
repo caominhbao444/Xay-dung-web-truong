@@ -1,0 +1,99 @@
+@import "../../styles/main.scss";
+
+footer {
+  width: 100%;
+  padding: 40px;
+  display: flex;
+  background-color: #333333;
+  div {
+    width: 33.3333%;
+  }
+  h5 {
+    color: white;
+  }
+  .footer-first {
+    display: flex;
+    flex-direction: column;
+    padding: 0 10px 0 0;
+    gap: 10px;
+    .logo {
+      width: 100%;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      img {
+        width: 100px;
+        height: 60px;
+      }
+      h5 {
+        color: white;
+        font-size: 17px;
+        font-weight: 700;
+      }
+    }
+    .list-social {
+      width: 100%;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 5px;
+      padding: 10px;
+      .icon {
+        color: $red-color;
+      }
+      span {
+        color: white;
+        font-size: 14px;
+      }
+      .icon-fb {
+        color: rgb(20, 74, 141);
+      }
+      .icon-yu {
+        color: rgb(206, 64, 64);
+      }
+      .icon-ins {
+        color: rgb(196, 37, 96);
+      }
+    }
+  }
+  .footer-second {
+    padding: 0 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    h4 {
+      color: white;
+    }
+    .icon {
+      color: $red-color;
+    }
+    span {
+      color: white;
+      font-size: 14px;
+    }
+  }
+  .footer-third {
+    padding: 0 0 0 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    h4 {
+      color: white;
+    }
+    .icon {
+      color: $red-color;
+    }
+    span {
+      color: white;
+      font-size: 14px;
+    }
+  }
+}
+@media screen and (max-width: 900px) {
+  footer {
+    flex-direction: column;
+    div {
+      width: 100%;
+    }
+  }
+}
