@@ -10,6 +10,7 @@ import {
   FaSignOutAlt,
 } from "react-icons/fa";
 import styled from "styled-components";
+import UserImg from "../../assets/userprofile.jpg";
 import { NavLink } from "react-router-dom";
 
 const Navbar = ({ children }) => {
@@ -71,7 +72,7 @@ const Navbar = ({ children }) => {
               }}
             >
               <img
-                src="https://avatars.githubusercontent.com/u/113426992?s=40&v=4"
+                src={UserImg}
                 alt=""
                 width={40}
                 height={40}
@@ -141,6 +142,8 @@ const NavbarContainer = styled.section`
     padding: 10px 15px;
     gap: 15px;
     transition: all 0s;
+    border-top: 1px dashed red;
+    border-bottom: 1px dashed red;
   }
   .link:hover {
     background: #e74c3c;

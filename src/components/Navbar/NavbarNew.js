@@ -9,6 +9,7 @@ import {
   FaThList,
   FaSignOutAlt,
 } from "react-icons/fa";
+import UserImg from "../../assets/userprofile.jpg";
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 
@@ -72,7 +73,7 @@ const NavbarNew = ({ children }) => {
               }}
             >
               <img
-                src="https://avatars.githubusercontent.com/u/113426992?s=40&v=4"
+                src={UserImg}
                 alt=""
                 width={40}
                 height={40}

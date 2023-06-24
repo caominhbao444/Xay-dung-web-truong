@@ -7,13 +7,15 @@
 .header-homepage {
   width: 100%;
   padding: 20px;
+  background-color: $background-color;
   display: flex;
   justify-content: flex-start;
   align-items: center;
   gap: 20px;
   h2 {
-    color: $red-color;
-    border-left: 1px solid $red-color;
+    color: $text-color;
+    border-left: 1px solid $text-color;
+    letter-spacing: 1px;
     padding-left: 2vw;
   }
 }

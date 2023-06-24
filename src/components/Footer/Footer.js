@@ -8,15 +8,13 @@ import {
   FaPhoneAlt,
 } from "react-icons/fa";
 import "./Footer.scss";
+import Logo from "../../assets/logo.png";
 function Footer() {
   return (
     <footer>
       <div className="footer-first">
         <div className="logo">
-          <img
-            src="https://stdportal.tdtu.edu.vn/images/LogoTDTBgWhite.png"
-            alt=""
-          />
+          <img src={Logo} alt="" />
           <h5>ĐẠI HỌC TÔN ĐỨC THẮNG</h5>
         </div>
         <div className="list-social">

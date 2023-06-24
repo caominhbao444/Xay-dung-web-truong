@@ -2,6 +2,7 @@ import { Button, Card, Grid, TextField } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { styled } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
+import loginImg from "../../assets/login.jpg";
 const ButtonStyle = styled(Button)({
   backgroundColor: "#207dc3",
   width: "100%",
@@ -36,10 +37,7 @@ function Login() {
         }}
       >
         <Grid item xs={6} md={6} className="image-container">
-          <img
-            src="https://images.unsplash.com/photo-1603852452516-972df21fccac?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8aG8lMjBjaGklMjBtaW5ofGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=600&q=60"
-            alt="My d"
-          />
+          <img src={loginImg} alt="My d" />
         </Grid>
         <Grid
           item

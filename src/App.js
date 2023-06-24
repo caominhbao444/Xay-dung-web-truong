@@ -14,6 +14,7 @@ import NewPage from "./pages/NewPage/NewPage";
 import Footer from "./components/Footer/Footer";
 import FormCreate from "./pages/FormPage/FormCreate/FormCreate";
 import FormAverage from "./pages/FormPage/FormAverage/FormAverage";
+import AnnoucePage from "./pages/AnnoucePage/AnnoucePage";
 function App() {
   return (
     <div className="App">
@@ -41,7 +42,7 @@ function App() {
             <Route path="/dondaxuly" element={<RequestFinished />} />
           </Route>
           <Route element={<PrivateComponent1 />}>
-            <Route path="/thongbao" element={<NewPage />} />
+            <Route path="/thongbao" element={<AnnoucePage />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>

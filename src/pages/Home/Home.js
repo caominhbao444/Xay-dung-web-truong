@@ -14,6 +14,10 @@ import {
   FaSignOutAlt,
   FaNewspaper,
 } from "react-icons/fa";
+import Thongbao1 from "../../assets/thongbao1.jpg";
+import Thongbao2 from "../../assets/thongbao2.jpg";
+import Thongbao3 from "../../assets/thongbao3.jpg";
+import Thongbao4 from "../../assets/thongbao4.jpg";
 import Quyche from "../../assets/quy-che.png";
 import Daotao from "../../assets/dao-tao.png";
 import Hoctap from "../../assets/hoc-tap.png";
@@ -144,27 +148,27 @@ const listNews = [
   {
     title:
       "ĐỐI THOẠI SINH VIÊN TRƯỜNG ĐẠI HỌC TÔN ĐỨC THẮNG NĂM HỌC 2022 - 2023",
-    img: "https://tdtu.edu.vn/sites/www/files/articles/2023/Jun/DTSV/DTSV_0.jpg",
+    img: Thongbao1,
     content:
       "Chiều ngày 8/6/2023, Trường Đại học Tôn Đức Thắng đã tổ chức buổi đối thoại sinh viên năm học 2022 - 2023.",
   },
   {
     title:
       "TRƯỜNG ĐẠI HỌC TÔN ĐỨC THẮNG PHÁT TRIỂN THÊM NHIỀU HOẠT ĐỘNG HỢP TÁC QUỐC TẾ MỚI",
-    img: "https://tdtu.edu.vn/sites/www/files/articles/2023/Jun/Hop-tac-QT/QT-0_0.jpg",
+    img: Thongbao2,
     content:
       "Trong chuyến công tác Châu Âu từ ngày 24/5 đến ngày 2/6/2023, Nhà trường đã làm việc và trao đổi thêm nhiều chương trình hợp tác tiềm năng với các đối tác và trường đại học uy tín ...",
   },
   {
     title:
       "LÃNH ĐẠO TRƯỜNG ĐẠI HỌC TÔN ĐỨC THẮNG THĂM VÀ LÀM VIỆC VỚI ĐẠI SỨ QUÁN VIỆT NAM TẠI CỘNG HÒA SÉC, LIÊN HIỆP HỘI NGƯỜI VIỆT NAM TẠI CHÂU ÂU",
-    img: "https://tdtu.edu.vn/sites/www/files/articles/2023/Jun/S/S-0.jpg",
+    img: Thongbao3,
     content:
       "Chiều ngày 01/06/2023, lãnh đạo Trường Đại học Tôn Đức Thắng đã đến thăm và làm việc với Đại sứ quán Việt Nam tại Cộng hòa Séc.",
   },
   {
     title: "TẾT THIẾU NHI NĂM 2023 TẠI TRƯỜNG ĐẠI HỌC TÔN ĐỨC THẮNG",
-    img: "https://tdtu.edu.vn/sites/www/files/articles/2023/Jun/Thieu-nhi/TN-0.jpg",
+    img: Thongbao4,
     content:
       "Chiều ngày 01/06/2023, Công đoàn cơ sở Trường Đại học Tôn Đức Thắng đã tổ chức chương trình giao lưu và trao Học bổng Nguyễn Đức Cảnh cho các cháu thiếu nhi ...",
   },
