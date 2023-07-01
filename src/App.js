@@ -15,6 +15,7 @@ import Footer from "./components/Footer/Footer";
 import FormCreate from "./pages/FormPage/FormCreate/FormCreate";
 import FormAverage from "./pages/FormPage/FormAverage/FormAverage";
 import AnnoucePage from "./pages/AnnoucePage/AnnoucePage";
+import Faculty from "./pages/FacultyPage/Faculty";
 function App() {
   return (
     <div className="App">
@@ -43,6 +44,7 @@ function App() {
           </Route>
           <Route element={<PrivateComponent1 />}>
             <Route path="/thongbao" element={<AnnoucePage />} />
+            <Route path="/thongbao/khoa/:id" element={<Faculty />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>

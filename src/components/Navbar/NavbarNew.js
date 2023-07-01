@@ -8,15 +8,55 @@ import {
   FaShoppingBag,
   FaThList,
   FaSignOutAlt,
+  FaAngleLeft,
+  FaAngleDown,
+  FaUserFriends,
+  FaRegImage,
+  FaRegWindowRestore,
+  FaSchool,
+  FaQrcode,
 } from "react-icons/fa";
 import UserImg from "../../assets/userprofile.jpg";
 import styled from "styled-components";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 const NavbarNew = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
-
+  const [separation, setSeparation] = useState(false);
+  const [title, setTitle] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
+  const [isActive, setIsActive] = useState(true);
+  const [isActiveSecond, setIsActiveSecond] = useState(false);
+  const [isActiveSecondDonvi, setIsActiveSecondDonvi] = useState(false);
+  const [isActiveSecondDonvi_Khoa, setIsActiveSecondDonvi_Khoa] =
+    useState(false);
+  const [isActiveSecondDonvi_PhongBan, setIsActiveSecondDonvi_PhongBan] =
+    useState(false);
+  const [isActiveSecondChude, setIsActiveSecondChude] = useState(false);
+  const handleClick = () => {
+    if (!isActive) {
+      setIsActive(true);
+      setIsActiveSecond(false);
+    } else {
+      setIsActive(false);
+    }
+  };
+  const handleClickSecond = () => {
+    if (!isActiveSecond) {
+      setIsActive(false);
+      setIsActiveSecond(true);
+    } else {
+      setIsActiveSecond(false);
+    }
+  };
+  // const handleClickSecondDonvi = () => {
+  //   if (!isActiveSecondItemFirst) {
+  //     setIsActiveSecondItemFirst(true);
+  //   } else {
+  //     setIsActiveSecondItemFirst(false);
+  //   }
+  // };
+
   const menuItem = [
     {
       path: "/thongbao",
@@ -85,44 +125,213 @@ const NavbarNew = ({ children }) => {
             </div>
             <FaSignOutAlt style={{ display: isOpen ? "block" : "none" }} />
           </div>
-          {/* {menuItem.map((item, index) => (
-            <NavLink
-              to={item.path}
-              key={index}
-              className="link"
-              activeclassName="active"
-            >
-              <div className="icon">{item.icon}</div>
+          <Link
+            to="/thongbao"
+            className={`link ${isActive ? "active" : ""}`}
+            onClick={handleClick}
+          >
+            <div style={{ display: "flex", gap: "15px" }}>
+              <div className="icon">
+                <FaHome />
+              </div>
               <div
                 style={{ display: isOpen ? "block" : "none" }}
                 className="link_text"
               >
-                {item.name}
+                Trang chủ
               </div>
-            </NavLink>
-          ))} */}
-          <NavLink to="/thongbao" className="link" activeclassName="active">
-            <div className="icon">
+            </div>
+            {/* <div
+              className="icon"
+              style={{ display: isOpen ? "block" : "none" }}
+            >
               <FaHome />
+            </div> */}
+          </Link>
+          <div
+            className={`link ${isActiveSecond ? "active" : ""}`}
+            onClick={handleClickSecond}
+            style={{}}
+          >
+            <div style={{ display: "flex", gap: "15px" }}>
+              <div className="icon">
+                <FaUserAlt />
+              </div>
+              <div
+                style={{ display: isOpen ? "block" : "none" }}
+                className="link_text"
+              >
+                Phân loại theo thông báo
+              </div>
             </div>
             <div
+              className="icon"
               style={{ display: isOpen ? "block" : "none" }}
-              className="link_text"
             >
-              Trang chủ
+              {isActiveSecond ? <FaAngleDown /> : <FaAngleLeft />}
             </div>
-          </NavLink>
-          <NavLink to="/phanloai" className="link" activeclassName="active">
-            <div className="icon">
+          </div>
+          {/* Đơn vị area */}
+          <div
+            className="link_item"
+            style={{
+              display: isActiveSecond ? "flex" : "none",
+            }}
+            // onClick={handleClickSecondItemFirst}
+          >
+            <div style={{ display: "flex", gap: "15px", paddingLeft: "31px" }}>
+              <div className="icon">
+                <FaRegImage />
+              </div>
+              <div
+                style={{ display: isOpen ? "block" : "none" }}
+                className="link_text"
+              >
+                Đơn vị
+              </div>
+            </div>
+            <div
+              className="icon"
+              style={{ display: isOpen ? "block" : "none" }}
+            >
+              {isActiveSecondDonvi ? <FaAngleDown /> : <FaAngleLeft />}
+            </div>
+          </div>
+          {/* Khoa area */}
+          <div
+            className="link"
+            style={{
+              display:
+                isActiveSecondDonvi_Khoa && isActiveSecondDonvi
+                  ? "flex"
+                  : "none",
+            }}
+          >
+            <div style={{ display: "flex", gap: "15px", paddingLeft: "31px" }}>
+              <div className="icon">
+                <FaSchool />
+              </div>
+              <div
+                style={{ display: isOpen ? "block" : "none" }}
+                className="link_text"
+              >
+                Khoa
+              </div>
+            </div>
+            <div
+              className="icon"
+              style={{ display: isOpen ? "block" : "none" }}
+            >
+              {isActiveSecondDonvi_Khoa ? <FaAngleDown /> : <FaAngleLeft />}
+            </div>
+          </div>
+
+          <Link
+            to={`/thongbao/khoa/congnghethongtin`}
+            className="link"
+            style={{
+              display: isActiveSecondDonvi_Khoa ? "flex" : "none",
+            }}
+          >
+            <div style={{ display: "flex", gap: "15px", paddingLeft: "31px" }}>
+              <div
+                style={{ display: isOpen ? "block" : "none" }}
+                className="link_text"
+              >
+                Khoa Công Nghệ Thông Tin
+              </div>
+            </div>
+          </Link>
+
+          {/* Phòng ban */}
+          <div
+            className="link"
+            style={{
+              display:
+                isActiveSecondDonvi_PhongBan && isActiveSecond
+                  ? "flex"
+                  : "none",
+            }}
+          >
+            <div style={{ display: "flex", gap: "15px", paddingLeft: "31px" }}>
+              <div className="icon">
+                <FaQrcode />
+              </div>
+              <div
+                style={{ display: isOpen ? "block" : "none" }}
+                className="link_text"
+              >
+                Phòng ban
+              </div>
+            </div>
+            <div
+              className="icon"
+              style={{ display: isOpen ? "block" : "none" }}
+            >
+              {isActiveSecondDonvi_PhongBan ? <FaAngleDown /> : <FaAngleLeft />}
+            </div>
+          </div>
+          {/* Chủ đề area */}
+          <div
+            className="link_item"
+            style={{
+              display: isActiveSecond ? "flex" : "none",
+            }}
+          >
+            <div style={{ display: "flex", gap: "15px", paddingLeft: "31px" }}>
+              <div className="icon">
+                <FaUserFriends />
+              </div>
+              <div
+                style={{ display: isOpen ? "block" : "none" }}
+                className="link_text"
+              >
+                Chủ đề
+              </div>
+            </div>
+            <div
+              className="icon"
+              style={{ display: isOpen ? "block" : "none" }}
+            >
+              {isActiveSecondChude ? <FaAngleDown /> : <FaAngleLeft />}
+            </div>
+          </div>
+          {/* Tất cả thông báo */}
+          <div
+            className="link_item"
+            style={{
+              display: isActiveSecond ? "flex" : "none",
+            }}
+          >
+            <div style={{ display: "flex", gap: "15px", paddingLeft: "31px" }}>
+              <div className="icon">
+                <FaRegWindowRestore />
+              </div>
+              <div
+                style={{ display: isOpen ? "block" : "none" }}
+                className="link_text"
+              >
+                Tất cả thông báo
+              </div>
+            </div>
+          </div>
+          {/* Chủ đề area */}
+          <div
+            to="/phanloai"
+            className="link"
+            activeclassName="active"
+            style={{ display: separation === true ? "block" : "none" }}
+          >
+            <div className="icon" style={{ opacity: "0" }}>
               <FaUserAlt />
             </div>
             <div
               style={{ display: isOpen ? "block" : "none" }}
               className="link_text"
             >
-              Phân loại theo thông báo
+              Chủ đề
             </div>
-          </NavLink>
+          </div>
         </div>
         <main>{children}</main>
       </div>
@@ -164,11 +373,28 @@ const NavbarNewContainer = styled.section`
     color: #2b2823;
     padding: 10px 15px;
     gap: 15px;
-    transition: all 0s;
+    transition: all 0.3s;
+    cursor: pointer;
+    justify-content: space-between;
   }
   .link:hover {
     background: #e74c3c;
-    color: #000;
+    color: #fff;
+    transition: all 0s;
+  }
+  .link_item {
+    display: flex;
+    color: #2b2823;
+    padding: 10px 15px;
+    gap: 15px;
+    transition: all 0.3s;
+    cursor: pointer;
+    justify-content: space-between;
+    background-color: #e5e6ca;
+  }
+  .link_item:hover {
+    background: #e74c3c;
+    color: #fff;
     transition: all 0s;
   }
   .active {
