@@ -1,0 +1,23 @@
+@import "../../styles/main.scss";
+
+.pagination {
+  display: flex;
+  width: 100%;
+  gap: 5px;
+  padding: 10px;
+  justify-content: center;
+  button {
+    padding: 5px 10px;
+    cursor: pointer;
+    outline: none;
+    border: 1px solid $border-color;
+  }
+  .list-page {
+    display: flex;
+    gap: 5px;
+    .item {
+      padding: 5px 7px;
+      border: 1px solid $border-color;
+    }
+  }
+}
