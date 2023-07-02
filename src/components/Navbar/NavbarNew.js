@@ -20,6 +20,20 @@ import UserImg from "../../assets/userprofile.jpg";
 import styled from "styled-components";
 import { Link, NavLink } from "react-router-dom";
 
+const listKhoa = [
+  { name: "Khoa Công nghệ thông tin", path: "/thongbao/khoa/congnghethongtin" },
+  { name: "Khoa Điện - Điện tử", path: "/thongbao/khoa/diendientu" },
+  { name: "Khoa Giáo dục quốc tế", path: "/thongbao/khoa/giaoducquocte" },
+  { name: "Khoa Lao động công đoàn", path: "/thongbao/khoa/laodongcongdoan" },
+  { name: "Khoa Luật", path: "/thongbao/khoa/luat" },
+  { name: "Khoa Quản trị kinh doanh", path: "/thongbao/khoa/quantrikinhdoanh" },
+];
+const listPhongban = [
+  { name: "Công ty TDT", path: "/thongbao/khoa/congtytdt" },
+  { name: "Phòng CTHSSV", path: "/thongbao/khoa/cthssv" },
+  { name: "Phòng Đại học", path: "/thongbao/khoa/phongdaihoc" },
+  { name: "Phòng Tài chính", path: "/thongbao/khoa/phongtaichinh" },
+];
 const NavbarNew = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [separation, setSeparation] = useState(false);
@@ -37,6 +51,9 @@ const NavbarNew = ({ children }) => {
     if (!isActive) {
       setIsActive(true);
       setIsActiveSecond(false);
+      setIsActiveSecondDonvi(false);
+      setIsActiveSecondDonvi_Khoa(false);
+      setIsActiveSecondDonvi_PhongBan(false);
     } else {
       setIsActive(false);
     }
@@ -45,18 +62,40 @@ const NavbarNew = ({ children }) => {
     if (!isActiveSecond) {
       setIsActive(false);
       setIsActiveSecond(true);
+      setIsActiveSecondDonvi_Khoa(false);
+      setIsActiveSecondDonvi_PhongBan(false);
     } else {
       setIsActiveSecond(false);
+      setIsActiveSecondDonvi(false);
     }
   };
-  // const handleClickSecondDonvi = () => {
-  //   if (!isActiveSecondItemFirst) {
-  //     setIsActiveSecondItemFirst(true);
-  //   } else {
-  //     setIsActiveSecondItemFirst(false);
-  //   }
-  // };
+  const handleClickSecondItemFirst = () => {
+    if (!isActiveSecondDonvi) {
+      setIsActiveSecondDonvi(true);
+    } else {
+      setIsActiveSecondDonvi(false);
+    }
+  };
+  const handleClick_Khoa = () => {
+    if (!isActiveSecondDonvi_Khoa) {
+      setIsActiveSecondDonvi_Khoa(true);
+    } else {
+      setIsActiveSecondDonvi_Khoa(false);
+    }
+  };
+  const handleClick_Phongban = () => {
+    if (!isActiveSecondDonvi_PhongBan) {
+      setIsActiveSecondDonvi_PhongBan(true);
+    } else {
+      setIsActiveSecondDonvi_PhongBan(false);
+    }
+  };
+  const handleClickScroll = () => {
+    setIsActiveSecond(false);
+    setIsActiveSecondDonvi(false);
 
+    window.scrollTo(0, 0);
+  };
   const menuItem = [
     {
       path: "/thongbao",
@@ -79,6 +118,7 @@ const NavbarNew = ({ children }) => {
       icon: <FaCommentAlt />,
     },
   ];
+
   return (
     <NavbarNewContainer>
       <div className="container">
@@ -177,7 +217,7 @@ const NavbarNew = ({ children }) => {
             style={{
               display: isActiveSecond ? "flex" : "none",
             }}
-            // onClick={handleClickSecondItemFirst}
+            onClick={handleClickSecondItemFirst}
           >
             <div style={{ display: "flex", gap: "15px", paddingLeft: "31px" }}>
               <div className="icon">
@@ -201,11 +241,9 @@ const NavbarNew = ({ children }) => {
           <div
             className="link"
             style={{
-              display:
-                isActiveSecondDonvi_Khoa && isActiveSecondDonvi
-                  ? "flex"
-                  : "none",
+              display: isActiveSecondDonvi ? "flex" : "none",
             }}
+            onClick={handleClick_Khoa}
           >
             <div style={{ display: "flex", gap: "15px", paddingLeft: "31px" }}>
               <div className="icon">
@@ -225,33 +263,43 @@ const NavbarNew = ({ children }) => {
               {isActiveSecondDonvi_Khoa ? <FaAngleDown /> : <FaAngleLeft />}
             </div>
           </div>
-
-          <Link
-            to={`/thongbao/khoa/congnghethongtin`}
-            className="link"
-            style={{
-              display: isActiveSecondDonvi_Khoa ? "flex" : "none",
-            }}
-          >
-            <div style={{ display: "flex", gap: "15px", paddingLeft: "31px" }}>
-              <div
-                style={{ display: isOpen ? "block" : "none" }}
-                className="link_text"
+          {listKhoa.map((item, index) => {
+            return (
+              <Link
+                key={index}
+                to={item.path}
+                className="link"
+                style={{
+                  display:
+                    isActiveSecondDonvi_Khoa &&
+                    isActiveSecond &&
+                    isActiveSecondDonvi
+                      ? "flex"
+                      : "none",
+                }}
+                onClick={handleClickScroll}
               >
-                Khoa Công Nghệ Thông Tin
-              </div>
-            </div>
-          </Link>
+                <div
+                  style={{ display: "flex", gap: "15px", paddingLeft: "31px" }}
+                >
+                  <div
+                    style={{ display: isOpen ? "block" : "none" }}
+                    className="link_text"
+                  >
+                    {item.name}
+                  </div>
+                </div>
+              </Link>
+            );
+          })}
 
           {/* Phòng ban */}
           <div
             className="link"
             style={{
-              display:
-                isActiveSecondDonvi_PhongBan && isActiveSecond
-                  ? "flex"
-                  : "none",
+              display: isActiveSecondDonvi && isActiveSecond ? "flex" : "none",
             }}
+            onClick={handleClick_Phongban}
           >
             <div style={{ display: "flex", gap: "15px", paddingLeft: "31px" }}>
               <div className="icon">
@@ -271,6 +319,37 @@ const NavbarNew = ({ children }) => {
               {isActiveSecondDonvi_PhongBan ? <FaAngleDown /> : <FaAngleLeft />}
             </div>
           </div>
+          {/* list phòng ban */}
+          {listPhongban.map((item, index) => {
+            return (
+              <Link
+                key={index}
+                to={item.path}
+                className="link"
+                style={{
+                  display:
+                    isActiveSecondDonvi_PhongBan &&
+                    isActiveSecond &&
+                    isActiveSecondDonvi
+                      ? "flex"
+                      : "none",
+                }}
+                onClick={handleClickScroll}
+              >
+                <div
+                  style={{ display: "flex", gap: "15px", paddingLeft: "31px" }}
+                >
+                  <div
+                    style={{ display: isOpen ? "block" : "none" }}
+                    className="link_text"
+                  >
+                    {item.name}
+                  </div>
+                </div>
+              </Link>
+            );
+          })}
+
           {/* Chủ đề area */}
           <div
             className="link_item"

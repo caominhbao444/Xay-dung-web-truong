@@ -12,8 +12,9 @@ import {
   FaStar,
   FaSearch,
 } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Pagination from "../../components/Pagination/Pagination";
+import Loading from "../Loading/Loading";
 
 const listType = [
   {
@@ -125,10 +126,11 @@ const listAnnouce = [
 ];
 const Faculty = () => {
   const [date, setDate] = React.useState(null);
-  console.log(date);
+  const { id } = useParams();
+  console.log(id);
   return (
     <section className="facultypage">
-      <Breadcrumbs
+      {/* <Breadcrumbs
         aria-label="breadcrumb"
         style={{
           height: "40px",
@@ -168,7 +170,7 @@ const Faculty = () => {
             gap: "5px",
           }}
         >
-          <span className="text-bread">Khoa Công Nghệ Thông Tin</span>
+          <span className="text-bread">{id}</span>
         </Link>
       </Breadcrumbs>
       <section className="faculty-body">
@@ -290,7 +292,8 @@ const Faculty = () => {
             <Pagination />
           </section>
         </section>
-      </section>
+      </section> */}
+      <Loading />
     </section>
   );
 };
