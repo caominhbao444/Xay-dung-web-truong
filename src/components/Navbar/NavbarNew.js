@@ -34,6 +34,12 @@ const listPhongban = [
   { name: "Phòng Đại học", path: "/thongbao/khoa/phongdaihoc" },
   { name: "Phòng Tài chính", path: "/thongbao/khoa/phongtaichinh" },
 ];
+const listChude = [
+  { name: "Bảo hiểm y tế", path: "/thongbao/chude/congtytdt" },
+  { name: "Học phí", path: "/thongbao/chude/hocphi" },
+  { name: "Học vụ", path: "/thongbao/chude/hocvu" },
+  { name: "Kế hoạch", path: "/thongbao/chude/kehoach" },
+];
 const NavbarNew = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [separation, setSeparation] = useState(false);
@@ -64,6 +70,7 @@ const NavbarNew = ({ children }) => {
       setIsActiveSecond(true);
       setIsActiveSecondDonvi_Khoa(false);
       setIsActiveSecondDonvi_PhongBan(false);
+      setIsActiveSecondChude(false);
     } else {
       setIsActiveSecond(false);
       setIsActiveSecondDonvi(false);
@@ -72,6 +79,7 @@ const NavbarNew = ({ children }) => {
   const handleClickSecondItemFirst = () => {
     if (!isActiveSecondDonvi) {
       setIsActiveSecondDonvi(true);
+      setIsActiveSecondChude(false);
     } else {
       setIsActiveSecondDonvi(false);
     }
@@ -88,6 +96,14 @@ const NavbarNew = ({ children }) => {
       setIsActiveSecondDonvi_PhongBan(true);
     } else {
       setIsActiveSecondDonvi_PhongBan(false);
+    }
+  };
+  const handleClick_Chude = () => {
+    if (!isActiveSecondChude) {
+      setIsActiveSecondChude(true);
+      setIsActiveSecondDonvi(false);
+    } else {
+      setIsActiveSecondChude(false);
     }
   };
   const handleClickScroll = () => {
@@ -356,6 +372,7 @@ const NavbarNew = ({ children }) => {
             style={{
               display: isActiveSecond ? "flex" : "none",
             }}
+            onClick={handleClick_Chude}
           >
             <div style={{ display: "flex", gap: "15px", paddingLeft: "31px" }}>
               <div className="icon">
@@ -375,8 +392,34 @@ const NavbarNew = ({ children }) => {
               {isActiveSecondChude ? <FaAngleDown /> : <FaAngleLeft />}
             </div>
           </div>
+          {listChude.map((item, index) => {
+            return (
+              <Link
+                key={index}
+                to={item.path}
+                className="link"
+                style={{
+                  display:
+                    isActiveSecondChude && isActiveSecond ? "flex" : "none",
+                }}
+                onClick={handleClickScroll}
+              >
+                <div
+                  style={{ display: "flex", gap: "15px", paddingLeft: "31px" }}
+                >
+                  <div
+                    style={{ display: isOpen ? "block" : "none" }}
+                    className="link_text"
+                  >
+                    {item.name}
+                  </div>
+                </div>
+              </Link>
+            );
+          })}
           {/* Tất cả thông báo */}
-          <div
+          <Link
+            to="/thongbao/all"
             className="link_item"
             style={{
               display: isActiveSecond ? "flex" : "none",
@@ -393,7 +436,7 @@ const NavbarNew = ({ children }) => {
                 Tất cả thông báo
               </div>
             </div>
-          </div>
+          </Link>
           {/* Chủ đề area */}
           <div
             to="/phanloai"

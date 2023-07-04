@@ -1,20 +1,9 @@
-import "./Faculty.scss";
+import React from "react";
+import "./AnnounceAll.scss";
 import { Breadcrumbs } from "@mui/material";
-import React, { useRef } from "react";
-
-import {
-  FaHome,
-  FaBullhorn,
-  FaArrowCircleLeft,
-  FaArrowCircleRight,
-  FaStar,
-  FaSearch,
-  FaAngleRight,
-} from "react-icons/fa";
-import { Link, useParams } from "react-router-dom";
-import Pagination from "../../components/Pagination/Pagination";
-import Loading from "../Loading/Loading";
-
+import { Link } from "react-router-dom";
+import { FaAngleRight, FaHome, FaSearch } from "react-icons/fa";
+import Pagination from "../../../components/Pagination/Pagination";
 const listType = [
   {
     index: 1,
@@ -123,12 +112,9 @@ const listAnnouce = [
     Trân trọng./.`,
   },
 ];
-const Faculty = () => {
-  const [date, setDate] = React.useState(null);
-  const { id } = useParams();
-  console.log(id);
+const AnnounceAll = () => {
   return (
-    <section className="facultypage">
+    <section className="annouceallpage">
       <Breadcrumbs
         separator={<FaAngleRight fontSize="small" />}
         aria-label="breadcrumb"
@@ -165,25 +151,6 @@ const Faculty = () => {
         </Link>
         <Link
           underline="hover"
-          to="/danhsachkhoa"
-          style={{
-            textDecoration: "none",
-            color: "#777777",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            gap: "5px",
-          }}
-        >
-          <span
-            className="text-bread"
-            style={{ textTransform: "uppercase", fontSize: "13px" }}
-          >
-            Khoa
-          </span>
-        </Link>
-        <Link
-          underline="hover"
           to="/thongbao"
           style={{
             textDecoration: "none",
@@ -198,11 +165,11 @@ const Faculty = () => {
             className="text-bread"
             style={{ textTransform: "uppercase", fontSize: "13px" }}
           >
-            {id}
+            Danh sách thông báo
           </span>
         </Link>
       </Breadcrumbs>
-      <section className="faculty-body">
+      <section className="annouce-body">
         <section className="content-container">
           <div className="item-first">
             <div className="announce-name">
@@ -257,11 +224,12 @@ const Faculty = () => {
               <input type="date" className="input-date"></input>
             </div>
           </div>
+
           <div className="item-second">
             <div className="announce-content">
               <div
                 style={{
-                  width: "calc(10% - 23px)",
+                  width: "10%",
                   backgroundColor: "#efefef",
                   display: "flex",
                   boxSizing: "border-box",
@@ -281,12 +249,30 @@ const Faculty = () => {
                 placeholder="Tìm kiếm theo nội dung thông báo"
                 style={{
                   display: "block",
-                  width: "calc(90% + 23px)",
+                  width: "90%",
                   border: "none",
                   padding: "7px 5px 7px 10px",
                   outline: "none",
                 }}
               ></input>
+            </div>
+            <div className="announce-cultury">
+              <select name="cars" className="type">
+                <option value="1" className="option">
+                  Chọn Phòng/Khoa
+                </option>
+                {listType.map((item, index) => {
+                  return (
+                    <option
+                      value={item.value}
+                      key={item.index}
+                      className="option"
+                    >
+                      {item.name}
+                    </option>
+                  );
+                })}
+              </select>
             </div>
             <div className="announce-button">
               <button>
@@ -322,9 +308,8 @@ const Faculty = () => {
           </section>
         </section>
       </section>
-      {/* <Loading /> */}
     </section>
   );
 };
 
-export default Faculty;
+export default AnnounceAll;

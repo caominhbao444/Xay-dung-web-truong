@@ -14,8 +14,12 @@ import NewPage from "./pages/NewPage/NewPage";
 import Footer from "./components/Footer/Footer";
 import FormCreate from "./pages/FormPage/FormCreate/FormCreate";
 import FormAverage from "./pages/FormPage/FormAverage/FormAverage";
-import AnnoucePage from "./pages/AnnoucePage/AnnoucePage";
+import AnnoucePage from "./pages/AnnoucePage/AnnouceHomePage/AnnoucePage";
+import AnnounceAll from "./pages/AnnoucePage/AnnounceAll/AnnounceAll";
 import Faculty from "./pages/FacultyPage/Faculty";
+import TopicPage from "./pages/TopicPage/TopicPage";
+import PrivateComponentAdmin from "./components/PrivateComponent/PrivateComponentAdmin";
+import AdminHome from "./pages/Admin/AdminHome/AdminHome";
 function App() {
   return (
     <div className="App">
@@ -42,9 +46,14 @@ function App() {
             <Route path="/dondangxuly" element={<RequestPending />} />
             <Route path="/dondaxuly" element={<RequestFinished />} />
           </Route>
+          <Route element={<PrivateComponentAdmin />}>
+            <Route path="/admin/home" element={<AdminHome />} />
+          </Route>
           <Route element={<PrivateComponent1 />}>
             <Route path="/thongbao" element={<AnnoucePage />} />
+            <Route path="/thongbao/all" element={<AnnounceAll />} />
             <Route path="/thongbao/khoa/:id" element={<Faculty />} />
+            <Route path="/thongbao/chude/:id" element={<TopicPage />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>

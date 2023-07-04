@@ -8,16 +8,16 @@ import {
   FaStar,
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import allImg from "../../assets/allannouce.jpg";
-import oldImg from "../../assets/oldannounce.jpg";
-import yteImg from "../../assets/yteannounce.jpg";
-import hocvuImg from "../../assets/hocvuannouce.jpg";
-import eventImg from "../../assets/eventannouce.jpg";
-import lichthiImg from "../../assets/lichthiannouce.jpg";
+import allImg from "../../../assets/allannouce.jpg";
+import oldImg from "../../../assets/oldannounce.jpg";
+import yteImg from "../../../assets/yteannounce.jpg";
+import hocvuImg from "../../../assets/hocvuannouce.jpg";
+import eventImg from "../../../assets/eventannouce.jpg";
+import lichthiImg from "../../../assets/lichthiannouce.jpg";
 
 import "./AnnoucePage.scss";
-import CardItemAnnounce from "../../components/Card/CardItemAnnounce/CardItemAnnounce";
-import CardItemAnnouceNew from "../../components/Card/CardItemAnnouceNew/CardItemAnnouceNew";
+import CardItemAnnounce from "../../../components/Card/CardItemAnnounce/CardItemAnnounce";
+import CardItemAnnouceNew from "../../../components/Card/CardItemAnnouceNew/CardItemAnnouceNew";
 const AnnoucePage = () => {
   const containerRef = useRef(null);
   const scrollToLeft = () => {
@@ -59,7 +59,12 @@ const AnnoucePage = () => {
           }}
         >
           <FaHome />
-          <span className="text-bread">Trang chủ</span>
+          <span
+            className="text-bread"
+            style={{ textTransform: "uppercase", fontSize: "13px" }}
+          >
+            Trang chủ
+          </span>
         </Link>
       </Breadcrumbs>
       <section className="annouce-body">

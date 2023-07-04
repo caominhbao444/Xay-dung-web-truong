@@ -1,20 +1,9 @@
-import "./Faculty.scss";
+import React from "react";
+import "./TopicPage.scss";
 import { Breadcrumbs } from "@mui/material";
-import React, { useRef } from "react";
-
-import {
-  FaHome,
-  FaBullhorn,
-  FaArrowCircleLeft,
-  FaArrowCircleRight,
-  FaStar,
-  FaSearch,
-  FaAngleRight,
-} from "react-icons/fa";
 import { Link, useParams } from "react-router-dom";
+import { FaAlignRight, FaAngleRight, FaHome, FaSearch } from "react-icons/fa";
 import Pagination from "../../components/Pagination/Pagination";
-import Loading from "../Loading/Loading";
-
 const listType = [
   {
     index: 1,
@@ -74,8 +63,8 @@ const listAnnouce = [
     date: "01/07/2023",
     cultury: "Công nghệ thông tin",
     content: `Kể từ ngày 01/7/2023, thầy Nguyễn Duy Khánh sẽ thôi công tác tại Khoa Công nghệ thông tin, do đó, các công tác do thầy Khánh phụ trách gồm các nội dung liên quan đến Công tác sinh viên, các học phần Tập sự nghề nghiệp, Kiến tập công nghiệp, Dự án CNTT1 sẽ được bàn giao lại cho Khoa.
-
-    Mọi thông tin cần liên hệ, sinh viên gửi email đến cô Cao Phi Phụng (caophiphung@tdtu.edu.vn) hoặc Khoa CNTT (it@tdtu.edu.vn) để được hỗ trợ.`,
+  
+      Mọi thông tin cần liên hệ, sinh viên gửi email đến cô Cao Phi Phụng (caophiphung@tdtu.edu.vn) hoặc Khoa CNTT (it@tdtu.edu.vn) để được hỗ trợ.`,
   },
   {
     id: 2,
@@ -83,14 +72,14 @@ const listAnnouce = [
     date: "27/06/2023",
     cultury: "Công nghệ thông tin",
     content: `Khoa CNTT thông báo đến các em về việc ghi nhận tham gia hoạt động trên hệ thống thông tin sinh viên các hoạt động sau:
-    1. Hoạt động Hội thao truyền thống Khoa CNTT ngày 19/6-26/6/2023
-    2. Hoạt động Cũ người mới ta và Ngày Hội cho em ngày 11/6-24/6/2023
-    
-    Sinh viên kiểm tra và phản hồi qua email thầy Khánh (nguyenduykhanh@tdtu.edu.vn) đến 15h00 ngày 30/06/2023.
-    
-    Sau thời gian trên, Khoa CNTT sẽ không giải quyết thêm bất kỳ phản hồi nào liên quan đến các hoạt động đã tổ chức trên.
-    
-    Trân trọng./.`,
+      1. Hoạt động Hội thao truyền thống Khoa CNTT ngày 19/6-26/6/2023
+      2. Hoạt động Cũ người mới ta và Ngày Hội cho em ngày 11/6-24/6/2023
+      
+      Sinh viên kiểm tra và phản hồi qua email thầy Khánh (nguyenduykhanh@tdtu.edu.vn) đến 15h00 ngày 30/06/2023.
+      
+      Sau thời gian trên, Khoa CNTT sẽ không giải quyết thêm bất kỳ phản hồi nào liên quan đến các hoạt động đã tổ chức trên.
+      
+      Trân trọng./.`,
   },
   {
     id: 3,
@@ -98,14 +87,14 @@ const listAnnouce = [
     date: "27/06/2023",
     cultury: "Công nghệ thông tin",
     content: `Khoa CNTT thông báo đến các em về việc ghi nhận tham gia hoạt động trên hệ thống thông tin sinh viên các hoạt động sau:
-    1. Hoạt động Hội thao truyền thống Khoa CNTT ngày 19/6-26/6/2023
-    2. Hoạt động Cũ người mới ta và Ngày Hội cho em ngày 11/6-24/6/2023
-    
-    Sinh viên kiểm tra và phản hồi qua email thầy Khánh (nguyenduykhanh@tdtu.edu.vn) đến 15h00 ngày 30/06/2023.
-    
-    Sau thời gian trên, Khoa CNTT sẽ không giải quyết thêm bất kỳ phản hồi nào liên quan đến các hoạt động đã tổ chức trên.
-    
-    Trân trọng./.`,
+      1. Hoạt động Hội thao truyền thống Khoa CNTT ngày 19/6-26/6/2023
+      2. Hoạt động Cũ người mới ta và Ngày Hội cho em ngày 11/6-24/6/2023
+      
+      Sinh viên kiểm tra và phản hồi qua email thầy Khánh (nguyenduykhanh@tdtu.edu.vn) đến 15h00 ngày 30/06/2023.
+      
+      Sau thời gian trên, Khoa CNTT sẽ không giải quyết thêm bất kỳ phản hồi nào liên quan đến các hoạt động đã tổ chức trên.
+      
+      Trân trọng./.`,
   },
   {
     id: 4,
@@ -113,22 +102,22 @@ const listAnnouce = [
     date: "27/06/2023",
     cultury: "Công nghệ thông tin",
     content: `Khoa CNTT thông báo đến các em về việc ghi nhận tham gia hoạt động trên hệ thống thông tin sinh viên các hoạt động sau:
-    1. Hoạt động Hội thao truyền thống Khoa CNTT ngày 19/6-26/6/2023
-    2. Hoạt động Cũ người mới ta và Ngày Hội cho em ngày 11/6-24/6/2023
-    
-    Sinh viên kiểm tra và phản hồi qua email thầy Khánh (nguyenduykhanh@tdtu.edu.vn) đến 15h00 ngày 30/06/2023.
-    
-    Sau thời gian trên, Khoa CNTT sẽ không giải quyết thêm bất kỳ phản hồi nào liên quan đến các hoạt động đã tổ chức trên.
-    
-    Trân trọng./.`,
+      1. Hoạt động Hội thao truyền thống Khoa CNTT ngày 19/6-26/6/2023
+      2. Hoạt động Cũ người mới ta và Ngày Hội cho em ngày 11/6-24/6/2023
+      
+      Sinh viên kiểm tra và phản hồi qua email thầy Khánh (nguyenduykhanh@tdtu.edu.vn) đến 15h00 ngày 30/06/2023.
+      
+      Sau thời gian trên, Khoa CNTT sẽ không giải quyết thêm bất kỳ phản hồi nào liên quan đến các hoạt động đã tổ chức trên.
+      
+      Trân trọng./.`,
   },
 ];
-const Faculty = () => {
+const TopicPage = () => {
   const [date, setDate] = React.useState(null);
   const { id } = useParams();
   console.log(id);
   return (
-    <section className="facultypage">
+    <section className="topicpage">
       <Breadcrumbs
         separator={<FaAngleRight fontSize="small" />}
         aria-label="breadcrumb"
@@ -165,7 +154,7 @@ const Faculty = () => {
         </Link>
         <Link
           underline="hover"
-          to="/danhsachkhoa"
+          to="/thongbao"
           style={{
             textDecoration: "none",
             color: "#777777",
@@ -179,7 +168,7 @@ const Faculty = () => {
             className="text-bread"
             style={{ textTransform: "uppercase", fontSize: "13px" }}
           >
-            Khoa
+            Chủ đề
           </span>
         </Link>
         <Link
@@ -202,7 +191,7 @@ const Faculty = () => {
           </span>
         </Link>
       </Breadcrumbs>
-      <section className="faculty-body">
+      <section className="topic-body">
         <section className="content-container">
           <div className="item-first">
             <div className="announce-name">
@@ -238,7 +227,7 @@ const Faculty = () => {
             <div className="announce-category">
               <select name="cars" className="type">
                 <option value="1" className="option">
-                  Chọn thể loại
+                  Chọn Khoa/Phòng
                 </option>
                 {listType.map((item, index) => {
                   return (
@@ -322,9 +311,8 @@ const Faculty = () => {
           </section>
         </section>
       </section>
-      {/* <Loading /> */}
     </section>
   );
 };
 
-export default Faculty;
+export default TopicPage;
