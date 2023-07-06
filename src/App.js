@@ -20,6 +20,7 @@ import Faculty from "./pages/FacultyPage/Faculty";
 import TopicPage from "./pages/TopicPage/TopicPage";
 import PrivateComponentAdmin from "./components/PrivateComponent/PrivateComponentAdmin";
 import AdminHome from "./pages/Admin/AdminHome/AdminHome";
+import Action from "./pages/Admin/AdminAnnounce/Action/Action";
 function App() {
   return (
     <div className="App">
@@ -48,6 +49,7 @@ function App() {
           </Route>
           <Route element={<PrivateComponentAdmin />}>
             <Route path="/admin/home" element={<AdminHome />} />
+            <Route path="/admin/thongbao/tao" element={<Action />} />
           </Route>
           <Route element={<PrivateComponent1 />}>
             <Route path="/thongbao" element={<AnnoucePage />} />

@@ -1,17 +1,69 @@
 import React from "react";
 import "./NavbarAdmin.scss";
-import { FaBars, FaHome, FaSignOutAlt } from "react-icons/fa";
+import {
+  FaAngleDown,
+  FaAngleLeft,
+  FaBars,
+  FaHighlighter,
+  FaHome,
+  FaInbox,
+  FaPlus,
+  FaRegFileAlt,
+  FaSignOutAlt,
+  FaUserAlt,
+} from "react-icons/fa";
 import UserImg from "../../../assets/userprofile.jpg";
 import { Link } from "react-router-dom";
 const NavbarAdmin = ({ children }) => {
   const [isOpen, setIsOpen] = React.useState(false);
   const [isActive, setIsActive] = React.useState(true);
+  const [isActive_Announce, setIsActive_Announce] = React.useState(false);
+  const [isActive_Action, setIsActive_Action] = React.useState(false);
+  const [isActive_Post, setIsActive_Post] = React.useState(false);
+  const [isActive_Request, setIsActive_Request] = React.useState(false);
   const toggle = () => setIsOpen(!isOpen);
   const handleClick = () => {
     if (!isActive) {
       setIsActive(true);
+      setIsActive_Action(false);
+      setIsActive_Announce(false);
+      setIsActive_Request(false);
+      setIsActive_Post(false);
     } else {
       setIsActive(false);
+    }
+  };
+  const handleClick_Announce = () => {
+    if (!isActive_Announce) {
+      setIsActive(false);
+      setIsActive_Announce(true);
+    } else {
+      setIsActive_Announce(false);
+    }
+  };
+  const handleClick_Action = () => {
+    if (!isActive_Action) {
+      setIsActive_Announce(false);
+      setIsActive(false);
+    } else {
+      setIsActive_Action(false);
+    }
+  };
+  const handleClick_Post = () => {
+    if (!isActive_Post) {
+      setIsActive_Announce(false);
+      setIsActive(false);
+    } else {
+      setIsActive_Post(false);
+    }
+  };
+
+  const handleClick_Request = () => {
+    if (!isActive_Request) {
+      setIsActive(false);
+      setIsActive_Request(true);
+    } else {
+      setIsActive_Request(false);
     }
   };
   return (
@@ -83,6 +135,101 @@ const NavbarAdmin = ({ children }) => {
               <FaHome />
             </div> */}
           </Link>
+          {/* ---Thông báo---- */}
+          <div
+            className={`link ${isActive_Announce ? "active" : ""}`}
+            onClick={handleClick_Announce}
+            style={{}}
+          >
+            <div style={{ display: "flex", gap: "15px" }}>
+              <div className="icon">
+                <FaInbox />
+              </div>
+              <div
+                style={{ display: isOpen ? "block" : "none" }}
+                className="link_text"
+              >
+                Thông báo
+              </div>
+            </div>
+            <div
+              className="icon"
+              style={{ display: isOpen ? "block" : "none" }}
+            >
+              {isActive_Announce ? <FaAngleDown /> : <FaAngleLeft />}
+            </div>
+          </div>
+          {/* ----Tạo chủ đề---- */}
+          <Link
+            to="/admin/thongbao/tao"
+            className="link"
+            onClick={handleClick_Action}
+            style={{
+              display: isActive_Announce ? "flex" : "none",
+            }}
+          >
+            <div style={{ display: "flex", gap: "15px" }}>
+              <div className="icon">
+                <FaPlus />
+              </div>
+              <div
+                style={{ display: isOpen ? "block" : "none" }}
+                className="link_text"
+              >
+                Thao tác
+              </div>
+            </div>
+          </Link>
+          <Link
+            to="/thongbao"
+            className="link"
+            style={{
+              display: isActive_Announce ? "flex" : "none",
+            }}
+            onClick={handleClick_Post}
+          >
+            <div style={{ display: "flex", gap: "15px" }}>
+              <div className="icon">
+                <FaHighlighter />
+              </div>
+              <div
+                style={{ display: isOpen ? "block" : "none" }}
+                className="link_text"
+              >
+                Đăng bài
+              </div>
+            </div>
+            {/* <div
+              className="icon"
+              style={{ display: isOpen ? "block" : "none" }}
+            >
+              <FaHome />
+            </div> */}
+          </Link>
+          {/* ---Đơn---- */}
+          <div
+            className={`link ${isActive_Request ? "active" : ""}`}
+            onClick={handleClick_Request}
+            style={{}}
+          >
+            <div style={{ display: "flex", gap: "15px" }}>
+              <div className="icon">
+                <FaRegFileAlt />
+              </div>
+              <div
+                style={{ display: isOpen ? "block" : "none" }}
+                className="link_text"
+              >
+                Đơn
+              </div>
+            </div>
+            <div
+              className="icon"
+              style={{ display: isOpen ? "block" : "none" }}
+            >
+              {isActive_Request ? <FaAngleDown /> : <FaAngleLeft />}
+            </div>
+          </div>
         </div>
         <main>{children}</main>
       </div>
