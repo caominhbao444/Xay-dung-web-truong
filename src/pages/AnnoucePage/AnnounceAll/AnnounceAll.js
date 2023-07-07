@@ -4,6 +4,7 @@ import { Breadcrumbs } from "@mui/material";
 import { Link } from "react-router-dom";
 import { FaAngleRight, FaHome, FaSearch } from "react-icons/fa";
 import Pagination from "../../../components/Pagination/Pagination";
+import { FloatButton } from "antd";
 const listType = [
   {
     index: 1,
@@ -111,8 +112,50 @@ const listAnnouce = [
     
     Trân trọng./.`,
   },
+  {
+    id: 5,
+    name: "Kiểm tra ghi nhận các hoạt động Khoa CNTT tổ chức",
+    date: "27/06/2023",
+    cultury: "Công nghệ thông tin",
+    content: `Khoa CNTT thông báo đến các em về việc ghi nhận tham gia hoạt động trên hệ thống thông tin sinh viên các hoạt động sau:
+    1. Hoạt động Hội thao truyền thống Khoa CNTT ngày 19/6-26/6/2023
+    2. Hoạt động Cũ người mới ta và Ngày Hội cho em ngày 11/6-24/6/2023
+    
+    Sinh viên kiểm tra và phản hồi qua email thầy Khánh (nguyenduykhanh@tdtu.edu.vn) đến 15h00 ngày 30/06/2023.
+    
+    Sau thời gian trên, Khoa CNTT sẽ không giải quyết thêm bất kỳ phản hồi nào liên quan đến các hoạt động đã tổ chức trên.
+    
+    Trân trọng./.`,
+  },
+  {
+    id: 6,
+    name: "Kiểm tra ghi nhận các hoạt động Khoa CNTT tổ chức",
+    date: "27/06/2023",
+    cultury: "Công nghệ thông tin",
+    content: `Khoa CNTT thông báo đến các em về việc ghi nhận tham gia hoạt động trên hệ thống thông tin sinh viên các hoạt động sau:
+    1. Hoạt động Hội thao truyền thống Khoa CNTT ngày 19/6-26/6/2023
+    2. Hoạt động Cũ người mới ta và Ngày Hội cho em ngày 11/6-24/6/2023
+    
+    Sinh viên kiểm tra và phản hồi qua email thầy Khánh (nguyenduykhanh@tdtu.edu.vn) đến 15h00 ngày 30/06/2023.
+    
+    Sau thời gian trên, Khoa CNTT sẽ không giải quyết thêm bất kỳ phản hồi nào liên quan đến các hoạt động đã tổ chức trên.
+    
+    Trân trọng./.`,
+  },
 ];
 const AnnounceAll = () => {
+  const [announceName, setAnnounceName] = React.useState("");
+  const [announceContent, setAnnounceContent] = React.useState("");
+  const [announceDate, setAnnounceDate] = React.useState("");
+  const [announceType, setAnnounceType] = React.useState("");
+  const [announceFaculty, setAnnounceFaculty] = React.useState("");
+  const handleFind = () => {
+    console.log("Type la", announceType);
+    console.log("Name la", announceName);
+    console.log("Noi dung la", announceContent);
+    console.log("Ngay la", announceDate);
+    console.log("Khoa la", announceFaculty);
+  };
   return (
     <section className="annouceallpage">
       <Breadcrumbs
@@ -200,10 +243,17 @@ const AnnounceAll = () => {
                   padding: "7px 5px 7px 10px",
                   outline: "none",
                 }}
+                value={announceName}
+                onChange={(e) => setAnnounceName(e.target.value)}
               ></input>
             </div>
             <div className="announce-category">
-              <select name="cars" className="type">
+              <select
+                name="type"
+                className="type"
+                value={announceType}
+                onChange={(e) => setAnnounceType(e.target.value)}
+              >
                 <option value="1" className="option">
                   Chọn thể loại
                 </option>
@@ -221,7 +271,12 @@ const AnnounceAll = () => {
               </select>
             </div>
             <div className="announce-date">
-              <input type="date" className="input-date"></input>
+              <input
+                type="date"
+                className="input-date"
+                value={announceDate}
+                onChange={(e) => setAnnounceDate(e.target.value)}
+              ></input>
             </div>
           </div>
 
@@ -254,10 +309,17 @@ const AnnounceAll = () => {
                   padding: "7px 5px 7px 10px",
                   outline: "none",
                 }}
+                value={announceContent}
+                onChange={(e) => setAnnounceContent(e.target.value)}
               ></input>
             </div>
             <div className="announce-cultury">
-              <select name="cars" className="type">
+              <select
+                name="faculty"
+                className="type"
+                value={announceFaculty}
+                onChange={(e) => setAnnounceFaculty(e.target.value)}
+              >
                 <option value="1" className="option">
                   Chọn Phòng/Khoa
                 </option>
@@ -275,7 +337,7 @@ const AnnounceAll = () => {
               </select>
             </div>
             <div className="announce-button">
-              <button>
+              <button onClick={handleFind}>
                 <FaSearch />
                 Tìm kiếm
               </button>
@@ -308,6 +370,7 @@ const AnnounceAll = () => {
           </section>
         </section>
       </section>
+      <FloatButton.BackTop />
     </section>
   );
 };

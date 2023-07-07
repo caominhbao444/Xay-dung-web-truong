@@ -186,6 +186,13 @@ const Home = () => {
       </header>
       <section className="banner">
         <span className="text-name">Cao Minh Bảo (518H0473)</span>
+        <Link
+          to="/admin/home"
+          style={{ display: "flex", alignItems: "center", gap: "10px" }}
+        >
+          <FaHome className="icon" />
+          <span className="text-logout">Quản lý hệ thống</span>
+        </Link>
         <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
           <FaHome className="icon" />
           <span className="text-logout">Đăng xuất</span>

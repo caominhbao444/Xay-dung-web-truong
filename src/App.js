@@ -21,6 +21,8 @@ import TopicPage from "./pages/TopicPage/TopicPage";
 import PrivateComponentAdmin from "./components/PrivateComponent/PrivateComponentAdmin";
 import AdminHome from "./pages/Admin/AdminHome/AdminHome";
 import Action from "./pages/Admin/AdminAnnounce/Action/Action";
+import Post from "./pages/Admin/AdminAnnounce/Post/Post";
+import AnnoucePost from "./pages/AnnoucePage/AnnoucePost/AnnoucePost";
 function App() {
   return (
     <div className="App">
@@ -50,9 +52,14 @@ function App() {
           <Route element={<PrivateComponentAdmin />}>
             <Route path="/admin/home" element={<AdminHome />} />
             <Route path="/admin/thongbao/tao" element={<Action />} />
+            <Route path="/admin/thongbao/dangbai" element={<Post />} />
           </Route>
           <Route element={<PrivateComponent1 />}>
             <Route path="/thongbao" element={<AnnoucePage />} />
+            <Route
+              path="/thongbao/chitietbaipost/:id"
+              element={<AnnoucePost />}
+            />
             <Route path="/thongbao/all" element={<AnnounceAll />} />
             <Route path="/thongbao/khoa/:id" element={<Faculty />} />
             <Route path="/thongbao/chude/:id" element={<TopicPage />} />

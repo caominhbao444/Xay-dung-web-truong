@@ -18,7 +18,7 @@ const Navbar = ({ children }) => {
   const toggle = () => setIsOpen(!isOpen);
   const menuItem = [
     {
-      path: "/home",
+      path: "/nopdon",
       name: "Trang chủ",
       icon: <FaHome />,
     },

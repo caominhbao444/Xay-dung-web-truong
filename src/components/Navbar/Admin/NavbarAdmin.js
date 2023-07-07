@@ -69,7 +69,13 @@ const NavbarAdmin = ({ children }) => {
   return (
     <section className="admin-page">
       <div className="container">
-        <div style={{ width: isOpen ? "350px" : "50px" }} className="sidebar">
+        <div
+          style={{
+            width: isOpen ? "350px" : "50px",
+            transition: "display 0.3s ease",
+          }}
+          className="sidebar"
+        >
           <div className="top_section">
             <p style={{ display: isOpen ? "block" : "none" }} className="logo">
               FisGS
@@ -165,6 +171,7 @@ const NavbarAdmin = ({ children }) => {
             className="link"
             onClick={handleClick_Action}
             style={{
+              transition: "display 0.3s ease",
               display: isActive_Announce ? "flex" : "none",
             }}
           >
@@ -181,10 +188,11 @@ const NavbarAdmin = ({ children }) => {
             </div>
           </Link>
           <Link
-            to="/thongbao"
+            to="/admin/thongbao/dangbai"
             className="link"
             style={{
               display: isActive_Announce ? "flex" : "none",
+              transition: "display 0.3s ease",
             }}
             onClick={handleClick_Post}
           >
