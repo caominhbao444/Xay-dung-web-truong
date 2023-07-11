@@ -2,10 +2,47 @@ import React from "react";
 import "./Action.scss";
 import { Breadcrumbs } from "@mui/material";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 import { FaHome, FaPen } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
+import { CallApiCreateFaculty } from "../../../../features/announceSlice";
+import useAuth from "../../../../hooks/useAuth/useAuth";
 const Action = () => {
   const [isActive, setIsActive] = React.useState(1);
-
+  const [nameFaculty, setNameFaculty] = React.useState("");
+  const [nameShortFaculty, setNameShortFaculty] = React.useState("");
+  const [descFaculty, setDescFaculty] = React.useState("");
+  const dispatch = useDispatch();
+  const authToken = localStorage.getItem("authToken");
+  const createFaculty = useSelector((state) => state.announce.createFaculty);
+  const handleCreateFaculty = (e) => {
+    e.preventDefault();
+    dispatch(
+      CallApiCreateFaculty({
+        headers: { authorization: `Bearer ${authToken}` },
+        facultyName: nameFaculty,
+        facultyCode: nameShortFaculty,
+        facultyDesc: descFaculty,
+      })
+    )
+      .then(() => {
+        Swal.fire({
+          title: "Thành công",
+          text: "Bài viết đã được đăng",
+          icon: "success",
+          confirmButtonText: "OK",
+        });
+      })
+      .then(() => {
+        setDescFaculty("");
+        setNameFaculty("");
+        setNameShortFaculty("");
+      })
+      .catch((error) => {
+        // Xử lý lỗi nếu cần
+        console.error(error);
+      });
+  };
   return (
     <section className="action-page">
       <Breadcrumbs
@@ -94,20 +131,30 @@ const Action = () => {
                   <label>
                     Nhập tên Khoa <span style={{ color: "red" }}>*</span>
                   </label>
-                  <input style={{ padding: "10px", outline: "none" }}></input>
+                  <input
+                    style={{ padding: "10px", outline: "none" }}
+                    value={nameFaculty}
+                    onChange={(e) => setNameFaculty(e.target.value)}
+                  ></input>
                 </div>
                 <div className="item">
                   <label>
                     Nhập tên viết tắt của Khoa
                     <span style={{ color: "red" }}>*</span>
                   </label>
-                  <input style={{ padding: "10px", outline: "none" }}></input>
+                  <input
+                    style={{ padding: "10px", outline: "none" }}
+                    value={nameShortFaculty}
+                    onChange={(e) => setNameShortFaculty(e.target.value)}
+                  ></input>
                 </div>
                 <div className="item">
                   <label>
                     Mô tả về Khoa <span style={{ color: "red" }}>*</span>
                   </label>
                   <textarea
+                    value={descFaculty}
+                    onChange={(e) => setDescFaculty(e.target.value)}
                     style={{
                       resize: "none",
                       padding: "10px",
@@ -117,7 +164,7 @@ const Action = () => {
                   ></textarea>
                 </div>
                 <div className="btn-container">
-                  <button>
+                  <button onClick={handleCreateFaculty}>
                     <FaPen />
                     Tạo
                   </button>

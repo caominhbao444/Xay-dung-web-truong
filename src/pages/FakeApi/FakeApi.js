@@ -1,0 +1,116 @@
+export const API_Request = [
+  { id: 1, name: "Đơn xin cấp bảng điểm", date: "7/7/2032" },
+  { id: 2, name: "Đơn xin cấp bảng điểm", date: "7/7/2032" },
+  { id: 3, name: "Đơn xin cấp bảng điểm", date: "7/7/2032" },
+  { id: 4, name: "Đơn xin cấp bảng điểm", date: "7/7/2032" },
+];
+export const API_TypeOfScoreTable = [
+  {
+    index: 1,
+    name: "Bảng điểm tích lũy",
+    inputValue: "",
+    calculatedValue: 0,
+  },
+  {
+    index: 2,
+    name: "Bảng điểm tất cả các học kỳ",
+    inputValue: "",
+    calculatedValue: 0,
+  },
+  {
+    index: 3,
+    name: "Bảng điểm tích lũy ngành 1",
+    inputValue: "",
+    calculatedValue: 0,
+  },
+  {
+    index: 4,
+    name: "Bảng điểm tích lũy ngành 2",
+    inputValue: "",
+    calculatedValue: 0,
+  },
+  {
+    index: 5,
+    name: "Bảng điểm tích lũy tiếng Anh ngành 1",
+    inputValue: "",
+    calculatedValue: 0,
+  },
+  {
+    index: 6,
+    name: "Bảng điểm tích lũy tiếng Anh ngành 2",
+    inputValue: "",
+    calculatedValue: 0,
+  },
+];
+export const API_ListAdminRequest = [
+  {
+    id: 1,
+    name: "Đơn xin bảng điểm",
+    student_id: "518H0473",
+    date: "07/07/2023",
+    status: "Chưa xử lý",
+  },
+  {
+    id: 2,
+    name: "Đơn xin bảng điểm",
+    student_id: "518H0473",
+    date: "07/07/2023",
+    status: "Đã xử lý",
+  },
+  {
+    id: 3,
+    name: "Đơn xin bảng điểm trung bình",
+    student_id: "518H0473",
+    date: "07/07/2023",
+    status: "Đã xử lý",
+  },
+  {
+    id: 4,
+    name: "Đơn xin bảng điểm trung bình",
+    student_id: "518H0473",
+    date: "07/07/2023",
+    status: "Đã xử lý",
+  },
+  {
+    id: 5,
+    name: "Đơn xin bảng điểm trung bình",
+    student_id: "518H0473",
+    date: "07/07/2023",
+    status: "Đã xử lý",
+  },
+  {
+    id: 6,
+    name: "Đơn xin bảng điểm trung bình",
+    student_id: "518H0473",
+    date: "07/07/2023",
+    status: "Đã xử lý",
+  },
+  {
+    id: 7,
+    name: "Đơn xin bảng điểm trung bình",
+    student_id: "518H0473",
+    date: "07/07/2023",
+    status: "Đã xử lý",
+  },
+  {
+    id: 8,
+    name: "Đơn xin bảng điểm trung bình",
+    student_id: "518H0473",
+    date: "07/07/2023",
+    status: "Đã xử lý",
+  },
+  {
+    id: 9,
+    name: "Đơn xin bảng điểm trung bình",
+    student_id: "518H0473",
+    date: "07/07/2023",
+    status: "Đã xử lý",
+  },
+  {
+    id: 10,
+    name: "Đơn xin bảng điểm trung bình",
+    student_id: "518H0473",
+    date: "07/07/2023",
+    status: "Đã xử lý",
+  },
+];

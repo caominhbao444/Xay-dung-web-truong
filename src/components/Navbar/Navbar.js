@@ -11,7 +11,7 @@ import {
 } from "react-icons/fa";
 import styled from "styled-components";
 import UserImg from "../../assets/userprofile.jpg";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 const Navbar = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -43,9 +43,13 @@ const Navbar = ({ children }) => {
       <div className="container">
         <div style={{ width: isOpen ? "350px" : "50px" }} className="sidebar">
           <div className="top_section">
-            <p style={{ display: isOpen ? "block" : "none" }} className="logo">
+            <Link
+              to="/home"
+              style={{ display: isOpen ? "block" : "none" }}
+              className="logo"
+            >
               FisGS
-            </p>
+            </Link>
             <div
               style={{ marginLeft: isOpen ? "150px" : "0px" }}
               className="bars"

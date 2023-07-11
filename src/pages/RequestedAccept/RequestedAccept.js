@@ -4,7 +4,9 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import * as MdIcons from "react-icons/md";
 import "./RequestedAccept.scss";
+import { API_Request } from "../FakeApi/FakeApi";
 const RequestedAccept = () => {
+  console.log(API_Request);
   return (
     <section className="request_accepted">
       <Breadcrumbs
@@ -66,119 +68,45 @@ const RequestedAccept = () => {
               </div>
             </div>
             <table style={{ width: "100%" }}>
-              <tr style={{ backgroundColor: "#e74c3c" }}>
-                <th style={{ width: "10%" }}>STT</th>
-                <th style={{ width: "50%", textAlign: "left" }}>
-                  Tên loại đơn
-                </th>
-                <th style={{ width: "20%" }}>Ngày nộp</th>
-                <th style={{ width: "20%" }}>Thao tác</th>
-              </tr>
+              <thead>
+                <tr style={{ backgroundColor: "#e74c3c", color: "white" }}>
+                  <th style={{ width: "10%" }}>STT</th>
+                  <th style={{ width: "50%" }}>Tên loại đơn</th>
+                  <th style={{ width: "20%" }}>Ngày nộp</th>
+                  <th style={{ width: "20%" }}>Thao tác</th>
+                </tr>
+              </thead>
               {/* <tr>
                 <td colspan="4" style={{ textAlign: "center" }}>
                   Không có dữ liệu
                 </td>
               </tr> */}
-              <tr>
-                <td>1</td>
-                <td>Đơn xin cấp bảng điểm</td>
-                <td>06/03/2023</td>
-                <td>
-                  <button style={{ cursor: "pointer", padding: "5px 10px" }}>
-                    Chi tiết
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>Đơn xin cấp bảng điểm</td>
-                <td>06/03/2023</td>
-                <td>
-                  <button style={{ cursor: "pointer", padding: "5px 10px" }}>
-                    Chi tiết
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>Đơn xin cấp bảng điểm</td>
-                <td>06/03/2023</td>
-                <td>
-                  <button style={{ cursor: "pointer", padding: "5px 10px" }}>
-                    Chi tiết
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td>4</td>
-                <td>Đơn xin cấp bảng điểm</td>
-                <td>06/03/2023</td>
-                <td>
-                  <button style={{ cursor: "pointer", padding: "5px 10px" }}>
-                    Chi tiết
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td>5</td>
-                <td>Đơn xin cấp bảng điểm</td>
-                <td>06/03/2023</td>
-                <td>
-                  <button style={{ cursor: "pointer", padding: "5px 10px" }}>
-                    Chi tiết
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td>6</td>
-                <td>Đơn xin cấp bảng điểm</td>
-                <td>06/03/2023</td>
-                <td>
-                  <button style={{ cursor: "pointer", padding: "5px 10px" }}>
-                    Chi tiết
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td>7</td>
-                <td>Đơn xin cấp bảng điểm</td>
-                <td>06/03/2023</td>
-                <td>
-                  <button style={{ cursor: "pointer", padding: "5px 10px" }}>
-                    Chi tiết
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td>8</td>
-                <td>Đơn xin cấp bảng điểm</td>
-                <td>06/03/2023</td>
-                <td>
-                  <button style={{ cursor: "pointer", padding: "5px 10px" }}>
-                    Chi tiết
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td>9</td>
-                <td>Đơn xin cấp bảng điểm</td>
-                <td>06/03/2023</td>
-                <td>
-                  <button style={{ cursor: "pointer", padding: "5px 10px" }}>
-                    Chi tiết
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td>10</td>
-                <td>Đơn xin cấp bảng điểm</td>
-                <td>06/03/2023</td>
-                <td>
-                  <button style={{ cursor: "pointer", padding: "5px 10px" }}>
-                    Chi tiết
-                  </button>
-                </td>
-              </tr>
+              <tbody>
+                {API_Request.map((item, index) => {
+                  return (
+                    <tr key={item.id}>
+                      <td>{item.id}</td>
+                      <td>{item.name}</td>
+                      <td>{item.date}</td>
+                      <td>
+                        <Link
+                          to={`/nopdon/chitiet/${item.id}`}
+                          style={{
+                            cursor: "pointer",
+                            padding: "5px 10px",
+                            border: "1px solid #e74c3c",
+                            color: "white",
+                            fontWeight: "bold",
+                            backgroundColor: "#e74c3c",
+                          }}
+                        >
+                          Chi tiết
+                        </Link>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
             </table>
             <div style={{ display: "flex", justifyContent: "flex-start" }}>
               Hiển thị 1 tới 1 dữ liệu

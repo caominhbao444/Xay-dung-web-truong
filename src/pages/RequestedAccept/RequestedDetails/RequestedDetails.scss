@@ -1,0 +1,13 @@
+@import "../../../styles/main.scss";
+
+.requesteddetails {
+  min-height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: #f0f2f5;
+  .requesteddetails-body {
+    min-height: calc(100vh - 40px);
+    width: 100%;
+    padding: 40px;
+  }
+}

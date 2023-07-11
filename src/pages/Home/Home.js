@@ -1,4 +1,3 @@
-import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Home.scss";
 import Logo from "../../assets/logo.png";
@@ -28,6 +27,8 @@ import Khaosat from "../../assets/khao-sat.png";
 import Nopdon from "../../assets/nop-don.png";
 import CardItem from "../../components/Card/CardItemHome/CardItem";
 import CardNews from "../../components/Card/Card/CardNews";
+import useAuth from "../../hooks/useAuth/useAuth";
+import { useSelector } from "react-redux";
 const listData = [
   {
     img: Quyche,
@@ -174,10 +175,18 @@ const listNews = [
   },
 ];
 const Home = () => {
+  const { username, fullname, faculty, roleName } = useAuth();
+
   const navigate = useNavigate();
   const handleNews = () => {
     navigate("/thongbao");
   };
+  const handleLogout = () => {
+    localStorage.removeItem("authToken");
+    navigate("/");
+  };
+
+  const handleRedux = () => {};
   return (
     <section className="homepage">
       <header className="header-homepage">
@@ -188,12 +197,25 @@ const Home = () => {
         <span className="text-name">Cao Minh Bảo (518H0473)</span>
         <Link
           to="/admin/home"
-          style={{ display: "flex", alignItems: "center", gap: "10px" }}
+          style={{
+            display: roleName === "admin" ? "flex" : "none",
+            alignItems: "center",
+            gap: "10px",
+          }}
         >
           <FaHome className="icon" />
           <span className="text-logout">Quản lý hệ thống</span>
         </Link>
-        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+        <button onClick={handleRedux}>Laasy redux</button>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "10px",
+            cursor: "pointer",
+          }}
+          onClick={handleLogout}
+        >
           <FaHome className="icon" />
           <span className="text-logout">Đăng xuất</span>
         </div>

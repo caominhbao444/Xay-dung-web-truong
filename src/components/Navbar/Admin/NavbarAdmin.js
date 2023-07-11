@@ -15,12 +15,13 @@ import {
 import UserImg from "../../../assets/userprofile.jpg";
 import { Link } from "react-router-dom";
 const NavbarAdmin = ({ children }) => {
-  const [isOpen, setIsOpen] = React.useState(false);
+  const [isOpen, setIsOpen] = React.useState(true);
   const [isActive, setIsActive] = React.useState(true);
   const [isActive_Announce, setIsActive_Announce] = React.useState(false);
   const [isActive_Action, setIsActive_Action] = React.useState(false);
   const [isActive_Post, setIsActive_Post] = React.useState(false);
   const [isActive_Request, setIsActive_Request] = React.useState(false);
+  const [isActive_List, setIsActive_List] = React.useState(false);
   const toggle = () => setIsOpen(!isOpen);
   const handleClick = () => {
     if (!isActive) {
@@ -37,6 +38,7 @@ const NavbarAdmin = ({ children }) => {
     if (!isActive_Announce) {
       setIsActive(false);
       setIsActive_Announce(true);
+      setIsActive_Request(false);
     } else {
       setIsActive_Announce(false);
     }
@@ -61,9 +63,19 @@ const NavbarAdmin = ({ children }) => {
   const handleClick_Request = () => {
     if (!isActive_Request) {
       setIsActive(false);
+      setIsActive_Announce(false);
       setIsActive_Request(true);
     } else {
       setIsActive_Request(false);
+    }
+  };
+  const handleClick_List = () => {
+    if (!isActive_List) {
+      setIsActive_Request(false);
+
+      setIsActive(false);
+    } else {
+      setIsActive_List(false);
     }
   };
   return (
@@ -77,9 +89,13 @@ const NavbarAdmin = ({ children }) => {
           className="sidebar"
         >
           <div className="top_section">
-            <p style={{ display: isOpen ? "block" : "none" }} className="logo">
+            <Link
+              to="/home"
+              style={{ display: isOpen ? "block" : "none" }}
+              className="logo"
+            >
               FisGS
-            </p>
+            </Link>
             <div
               style={{ marginLeft: isOpen ? "150px" : "0px" }}
               className="bars"
@@ -238,6 +254,27 @@ const NavbarAdmin = ({ children }) => {
               {isActive_Request ? <FaAngleDown /> : <FaAngleLeft />}
             </div>
           </div>
+          <Link
+            to="/admin/don/danhsach"
+            className="link"
+            onClick={handleClick_List}
+            style={{
+              transition: "display 0.3s ease",
+              display: isActive_Request ? "flex" : "none",
+            }}
+          >
+            <div style={{ display: "flex", gap: "15px" }}>
+              <div className="icon">
+                <FaPlus />
+              </div>
+              <div
+                style={{ display: isOpen ? "block" : "none" }}
+                className="link_text"
+              >
+                Danh sách đơn
+              </div>
+            </div>
+          </Link>
         </div>
         <main>{children}</main>
       </div>

@@ -1,20 +1,32 @@
-import React, { useState, useRef, useMemo } from "react";
+import React, { useState, useRef, useMemo, useEffect } from "react";
 import "./Post.scss";
 import { Breadcrumbs } from "@mui/material";
 import { Link } from "react-router-dom";
 import { FaHome } from "react-icons/fa";
 import JoditEditor from "jodit-react";
 import "jodit/build/jodit.min.css";
+import { CallApiGetAllFaculty } from "../../../../features/announceSlice";
+import { useDispatch, useSelector } from "react-redux";
 const Post = () => {
   const editor = useRef(null);
   const [content, setContent] = useState("");
-
+  const [location, setLocation] = useState("Khoa");
+  const dispatch = useDispatch();
+  const authToken = localStorage.getItem("authToken");
+  const listFaculty = useSelector((state) => state.announce.listFaculty);
   const config = useMemo(
     () => ({
       readonly: false,
     }),
     []
-  ); // Pass an empty dependency array to useMemo
+  );
+  useEffect(() => {
+    dispatch(
+      CallApiGetAllFaculty({
+        headers: { authorization: `Bearer ${authToken}` },
+      })
+    );
+  }, [location]);
   return (
     <section className="post-page">
       <Breadcrumbs
@@ -85,9 +97,13 @@ const Post = () => {
               <label>
                 Chọn Đơn vị <span style={{ color: "red" }}>*</span>
               </label>
-              <select style={{ padding: "10px" }}>
-                <option>Đơn vị</option>
-                <option>Phòng/Ban</option>
+              <select
+                style={{ padding: "10px" }}
+                value={location}
+                onChange={(e) => setLocation(e.target.value)}
+              >
+                <option value={"Khoa"}>Khoa</option>
+                <option value={"Phong"}>Phòng/Ban</option>
               </select>
             </div>
             <div
@@ -102,8 +118,13 @@ const Post = () => {
                 Chọn Khoa/Phòng ban <span style={{ color: "red" }}>*</span>
               </label>
               <select style={{ padding: "10px" }}>
-                <option>Khoa/Phòng ban</option>
-                <option>Phòng/Ban</option>
+                <option disabled defaultValue hidden>
+                  Chọn Khoa/Phòng ban
+                </option>
+                {listFaculty.content &&
+                  listFaculty.content.map((item, index) => {
+                    return <option key={item.id}>{item.facultyName}</option>;
+                  })}
               </select>
             </div>
             <div

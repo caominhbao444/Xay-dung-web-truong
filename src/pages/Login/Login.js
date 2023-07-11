@@ -3,6 +3,9 @@ import React, { useEffect, useState } from "react";
 import { styled } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import loginImg from "../../assets/login.jpg";
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const ButtonStyle = styled(Button)({
   backgroundColor: "#207dc3",
   width: "100%",
@@ -17,6 +20,25 @@ const ButtonStyle = styled(Button)({
 });
 function Login() {
   const navigate = useNavigate();
+  const [username, setUsername] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    axios
+      .post("http://localhost:8080/api/auth/token", {
+        username: username,
+        password: password,
+      })
+      .then((response) => {
+        console.log(response.data);
+        localStorage.setItem("authToken", response.data);
+        window.location.href = "/home";
+      })
+      .catch((error) => {
+        toast.warning("Tên đăng nhập hoặc mật khẩu sai!");
+        // console.error(error.response.data);
+      });
+  };
   return (
     <LoginContainer
       style={{
@@ -72,6 +94,8 @@ function Login() {
               placeholder="Nhập tên đăng nhập của bạn"
               variant="outlined"
               fullWidth
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
             />
             <TextField
               name="passwords"
@@ -80,10 +104,10 @@ function Login() {
               InputLabelProps={{ style: { color: `black` } }}
               variant="outlined"
               fullWidth
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
-            <ButtonStyle onClick={() => navigate("/home")}>
-              Đăng nhập
-            </ButtonStyle>
+            <ButtonStyle onClick={handleSubmit}>Đăng nhập</ButtonStyle>
             <span
               style={{ cursor: "pointer", padding: "5px", color: "#207dc3" }}
             >
@@ -92,6 +116,7 @@ function Login() {
           </Grid>
         </Grid>
       </Grid>
+      <ToastContainer />
     </LoginContainer>
   );
 }

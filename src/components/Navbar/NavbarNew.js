@@ -140,9 +140,13 @@ const NavbarNew = ({ children }) => {
       <div className="container">
         <div style={{ width: isOpen ? "350px" : "50px" }} className="sidebar">
           <div className="top_section">
-            <p style={{ display: isOpen ? "block" : "none" }} className="logo">
+            <Link
+              style={{ display: isOpen ? "block" : "none" }}
+              className="logo"
+              to="/home"
+            >
               FisGS
-            </p>
+            </Link>
             <div
               style={{ marginLeft: isOpen ? "150px" : "0px" }}
               className="bars"

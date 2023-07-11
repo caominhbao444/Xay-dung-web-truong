@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Login from "./pages/Login/Login";
 import { Navbar } from "./components/Navbar/Navbar";
 import "./App.css";
@@ -23,7 +23,11 @@ import AdminHome from "./pages/Admin/AdminHome/AdminHome";
 import Action from "./pages/Admin/AdminAnnounce/Action/Action";
 import Post from "./pages/Admin/AdminAnnounce/Post/Post";
 import AnnoucePost from "./pages/AnnoucePage/AnnoucePost/AnnoucePost";
+import RequestedDetails from "./pages/RequestedAccept/RequestedDetails/RequestedDetails";
+import AdminRequest from "./pages/Admin/AdminRequest/AdminRequest";
+import useAuth from "./hooks/useAuth/useAuth";
 function App() {
+  const { username, fullname, faculty, roleName } = useAuth();
   return (
     <div className="App">
       <BrowserRouter>
@@ -32,14 +36,19 @@ function App() {
           <Route
             path="/home"
             element={
-              <>
-                <Home />
-                <Footer />
-              </>
+              username ? (
+                <>
+                  <Home />
+                  <Footer />
+                </>
+              ) : (
+                <Navigate to="/" />
+              )
             }
           />
           <Route element={<PrivateComponent />}>
             <Route path="/nopdon" element={<FormPage />} />
+            <Route path="/nopdon/chitiet/:id" element={<RequestedDetails />} />
             <Route path="/danopdon" element={<RequestedAccept />} />
             <Route path="/taodon/DonXinCapBangDiem" element={<FormCreate />} />
             <Route
@@ -53,6 +62,7 @@ function App() {
             <Route path="/admin/home" element={<AdminHome />} />
             <Route path="/admin/thongbao/tao" element={<Action />} />
             <Route path="/admin/thongbao/dangbai" element={<Post />} />
+            <Route path="/admin/don/danhsach" element={<AdminRequest />} />
           </Route>
           <Route element={<PrivateComponent1 />}>
             <Route path="/thongbao" element={<AnnoucePage />} />
