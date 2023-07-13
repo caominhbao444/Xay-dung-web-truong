@@ -5,7 +5,11 @@ import { Link } from "react-router-dom";
 import { FaHome } from "react-icons/fa";
 import JoditEditor from "jodit-react";
 import "jodit/build/jodit.min.css";
-import { CallApiGetAllFaculty } from "../../../../features/announceSlice";
+import {
+  CallApiGetAllFaculty,
+  CallApiGetAllDepartment,
+  CallApiGetAllCategory,
+} from "../../../../features/announceSlice";
 import { useDispatch, useSelector } from "react-redux";
 const Post = () => {
   const editor = useRef(null);
@@ -14,6 +18,8 @@ const Post = () => {
   const dispatch = useDispatch();
   const authToken = localStorage.getItem("authToken");
   const listFaculty = useSelector((state) => state.announce.listFaculty);
+  const listDepartment = useSelector((state) => state.announce.listDepartment);
+  const listCategory = useSelector((state) => state.announce.listCategory);
   const config = useMemo(
     () => ({
       readonly: false,
@@ -21,12 +27,27 @@ const Post = () => {
     []
   );
   useEffect(() => {
+    if (location === "Khoa") {
+      dispatch(
+        CallApiGetAllFaculty({
+          headers: { authorization: `Bearer ${authToken}` },
+        })
+      );
+    } else if (location === "Phong") {
+      dispatch(
+        CallApiGetAllDepartment({
+          headers: { authorization: `Bearer ${authToken}` },
+        })
+      );
+    }
+  }, [location]);
+  React.useEffect(() => {
     dispatch(
-      CallApiGetAllFaculty({
+      CallApiGetAllCategory({
         headers: { authorization: `Bearer ${authToken}` },
       })
     );
-  }, [location]);
+  }, []);
   return (
     <section className="post-page">
       <Breadcrumbs
@@ -121,9 +142,17 @@ const Post = () => {
                 <option disabled defaultValue hidden>
                   Chọn Khoa/Phòng ban
                 </option>
-                {listFaculty.content &&
+                {location === "Khoa" &&
+                  listFaculty.content &&
                   listFaculty.content.map((item, index) => {
                     return <option key={item.id}>{item.facultyName}</option>;
+                  })}
+                {location === "Phong" &&
+                  listDepartment.content &&
+                  listDepartment.content.map((item, index) => {
+                    return (
+                      <option key={item.id}>{item.departCenterName}</option>
+                    );
                   })}
               </select>
             </div>
@@ -139,8 +168,14 @@ const Post = () => {
                 Chọn Chủ đề <span style={{ color: "red" }}>*</span>
               </label>
               <select style={{ padding: "10px" }}>
-                <option>Chủ đề</option>
-                <option>Phòng/Ban</option>
+                <option disabled defaultValue hidden>
+                  Chủ đề
+                </option>
+                {listCategory &&
+                  listCategory.content &&
+                  listCategory.content.map((item, index) => {
+                    return <option key={item.id}>{item.categoryName}</option>;
+                  })}
               </select>
             </div>
           </div>

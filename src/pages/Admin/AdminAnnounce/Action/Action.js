@@ -4,17 +4,31 @@ import { Breadcrumbs } from "@mui/material";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import { FaHome, FaPen } from "react-icons/fa";
-import { useDispatch, useSelector } from "react-redux";
-import { CallApiCreateFaculty } from "../../../../features/announceSlice";
-import useAuth from "../../../../hooks/useAuth/useAuth";
+import { useDispatch } from "react-redux";
+import {
+  CallApiCreateFaculty,
+  CallApiCreateDepartment,
+  CallApiCreateCategory,
+} from "../../../../features/announceSlice";
+import CategoryComponent from "../../../../components/Admin/Announce/Category/CategoryComponent";
+
 const Action = () => {
   const [isActive, setIsActive] = React.useState(1);
   const [nameFaculty, setNameFaculty] = React.useState("");
   const [nameShortFaculty, setNameShortFaculty] = React.useState("");
   const [descFaculty, setDescFaculty] = React.useState("");
+  const [nameDepartment, setNameDepartment] = React.useState("");
+  const [nameShortDepartment, setNameShortDepartment] = React.useState("");
+  const [descDepartment, setDescDepartment] = React.useState("");
+  const [categoryName, setCategoryName] = React.useState("");
+  const [categoryCode, setCategoryCode] = React.useState("");
+  const [categoryDesc, setCategoryDesc] = React.useState("");
   const dispatch = useDispatch();
   const authToken = localStorage.getItem("authToken");
-  const createFaculty = useSelector((state) => state.announce.createFaculty);
+  // const createFaculty = useSelector((state) => state.announce.createFaculty);
+  // const createDepartment = useSelector(
+  //   (state) => state.announce.createDepartment
+  // );
   const handleCreateFaculty = (e) => {
     e.preventDefault();
     dispatch(
@@ -39,6 +53,88 @@ const Action = () => {
         setNameShortFaculty("");
       })
       .catch((error) => {
+        // Xử lý lỗi nếu cần
+        console.error(error);
+      });
+  };
+  const handleCreateDepartment = (e) => {
+    e.preventDefault();
+    dispatch(
+      CallApiCreateDepartment({
+        headers: { authorization: `Bearer ${authToken}` },
+        departCenterName: nameDepartment,
+        departCenterCode: nameShortDepartment,
+        departCenterDesc: descDepartment,
+      })
+    )
+      .then((response) => {
+        if (response && response.payload) {
+          Swal.fire({
+            title: "Thành công",
+            text: "Bài viết đã được đăng",
+            icon: "success",
+            confirmButtonText: "OK",
+          });
+          setDescDepartment("");
+          setNameDepartment("");
+          setNameShortDepartment("");
+        } else {
+          Swal.fire({
+            title: "Lỗi",
+            text: "Đã xảy ra lỗi khi gửi yêu cầu",
+            icon: "error",
+            confirmButtonText: "OK",
+          });
+        }
+      })
+      .catch((error) => {
+        Swal.fire({
+          title: "Lỗi",
+          text: "Đã xảy ra lỗi khi gửi yêu cầu",
+          icon: "error",
+          confirmButtonText: "OK",
+        });
+        // Xử lý lỗi nếu cần
+        console.error(error);
+      });
+  };
+  const handleCreateCategory = (e) => {
+    e.preventDefault();
+    dispatch(
+      CallApiCreateCategory({
+        headers: { authorization: `Bearer ${authToken}` },
+        categoryName: categoryName,
+        categoryCode: categoryCode,
+        categoryDesc: categoryDesc,
+      })
+    )
+      .then((response) => {
+        if (response && response.payload) {
+          Swal.fire({
+            title: "Thành công",
+            text: "Chủ đề đã tạo thành công",
+            icon: "success",
+            confirmButtonText: "OK",
+          });
+          setDescDepartment("");
+          setNameDepartment("");
+          setNameShortDepartment("");
+        } else {
+          Swal.fire({
+            title: "Lỗi",
+            text: "Đã xảy ra lỗi khi gửi yêu cầu",
+            icon: "error",
+            confirmButtonText: "OK",
+          });
+        }
+      })
+      .catch((error) => {
+        Swal.fire({
+          title: "Lỗi",
+          text: "Đã xảy ra lỗi khi gửi yêu cầu",
+          icon: "error",
+          confirmButtonText: "OK",
+        });
         // Xử lý lỗi nếu cần
         console.error(error);
       });
@@ -123,7 +219,8 @@ const Action = () => {
               <p>Tạo Chủ đề</p>
             </div>
           </div>
-          <div className="right">
+          {isActive === 1 && <CategoryComponent />}
+          {/* <div className="right">
             {isActive === 1 && (
               <>
                 <h3>Nhập thông tin về Khoa</h3>
@@ -178,14 +275,22 @@ const Action = () => {
                   <label>
                     Nhập tên Phòng/Ban <span style={{ color: "red" }}>*</span>
                   </label>
-                  <input style={{ padding: "10px", outline: "none" }}></input>
+                  <input
+                    style={{ padding: "10px", outline: "none" }}
+                    value={nameDepartment}
+                    onChange={(e) => setNameDepartment(e.target.value)}
+                  ></input>
                 </div>
                 <div className="item">
                   <label>
                     Nhập tên viết tắt của Phòng/Ban{" "}
                     <span style={{ color: "red" }}>*</span>
                   </label>
-                  <input style={{ padding: "10px", outline: "none" }}></input>
+                  <input
+                    style={{ padding: "10px", outline: "none" }}
+                    value={nameShortDepartment}
+                    onChange={(e) => setNameShortDepartment(e.target.value)}
+                  ></input>
                 </div>
                 <div className="item">
                   <label>
@@ -198,10 +303,12 @@ const Action = () => {
                       outline: "none",
                       height: "150px",
                     }}
+                    value={descDepartment}
+                    onChange={(e) => setDescDepartment(e.target.value)}
                   ></textarea>
                 </div>
                 <div className="btn-container">
-                  <button>
+                  <button onClick={handleCreateDepartment}>
                     <FaPen />
                     Tạo
                   </button>
@@ -215,20 +322,30 @@ const Action = () => {
                   <label>
                     Nhập tên Chủ đề <span style={{ color: "red" }}>*</span>
                   </label>
-                  <input style={{ padding: "10px", outline: "none" }}></input>
+                  <input
+                    style={{ padding: "10px", outline: "none" }}
+                    value={categoryName}
+                    onChange={(e) => setCategoryName(e.target.value)}
+                  ></input>
                 </div>
                 <div className="item">
                   <label>
                     Nhập tên viết tắt của Chủ đề
                     <span style={{ color: "red" }}>*</span>
                   </label>
-                  <input style={{ padding: "10px", outline: "none" }}></input>
+                  <input
+                    style={{ padding: "10px", outline: "none" }}
+                    value={categoryCode}
+                    onChange={(e) => setCategoryCode(e.target.value)}
+                  ></input>
                 </div>
                 <div className="item">
                   <label>
                     Mô tả về Chủ đề <span style={{ color: "red" }}>*</span>
                   </label>
                   <textarea
+                    value={categoryDesc}
+                    onChange={(e) => setCategoryDesc(e.target.value)}
                     style={{
                       resize: "none",
                       padding: "10px",
@@ -238,14 +355,14 @@ const Action = () => {
                   ></textarea>
                 </div>
                 <div className="btn-container">
-                  <button>
+                  <button onClick={handleCreateCategory}>
                     <FaPen />
                     Tạo
                   </button>
                 </div>
               </>
             )}
-          </div>
+          </div> */}
         </section>
       </section>
     </section>

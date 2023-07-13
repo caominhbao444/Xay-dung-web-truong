@@ -13,14 +13,13 @@
       width: 100%;
       box-sizing: border-box;
       background-color: white;
-      height: calc(100vh - 120px);
+      min-height: calc(100vh - 120px);
       display: flex;
       flex-direction: row;
 
       .left {
         width: 20%;
-        height: 50%;
-
+        min-height: 50%;
         display: flex;
         flex-direction: column;
         gap: 5px;

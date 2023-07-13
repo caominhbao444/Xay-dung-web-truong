@@ -206,7 +206,7 @@ const Home = () => {
           <FaHome className="icon" />
           <span className="text-logout">Quản lý hệ thống</span>
         </Link>
-        <button onClick={handleRedux}>Laasy redux</button>
+
         <div
           style={{
             display: "flex",

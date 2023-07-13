@@ -4,6 +4,8 @@ import { Breadcrumbs } from "@mui/material";
 import { Link, useParams } from "react-router-dom";
 import { FaAlignRight, FaAngleRight, FaHome, FaSearch } from "react-icons/fa";
 import Pagination from "../../components/Pagination/Pagination";
+import { CallApiGetAllCategory } from "../../features/announceSlice";
+import { useDispatch, useSelector } from "react-redux";
 const listType = [
   {
     index: 1,
@@ -113,7 +115,8 @@ const listAnnouce = [
   },
 ];
 const TopicPage = () => {
-  const [date, setDate] = React.useState(null);
+  const authToken = localStorage.getItem("authToken");
+  const dispatch = useDispatch();
   const { id } = useParams();
   console.log(id);
   return (

@@ -1,12 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   FaHome,
   FaBars,
   FaUserAlt,
   FaRegChartBar,
   FaCommentAlt,
-  FaShoppingBag,
-  FaThList,
   FaSignOutAlt,
   FaAngleLeft,
   FaAngleDown,
@@ -18,8 +16,9 @@ import {
 } from "react-icons/fa";
 import UserImg from "../../assets/userprofile.jpg";
 import styled from "styled-components";
-import { Link, NavLink } from "react-router-dom";
-
+import { Link } from "react-router-dom";
+import { CallApiGetAllCategory } from "../../features/announceSlice";
+import { useDispatch, useSelector } from "react-redux";
 const listKhoa = [
   { name: "Khoa Công nghệ thông tin", path: "/thongbao/khoa/congnghethongtin" },
   { name: "Khoa Điện - Điện tử", path: "/thongbao/khoa/diendientu" },
@@ -41,6 +40,8 @@ const listChude = [
   { name: "Kế hoạch", path: "/thongbao/chude/kehoach" },
 ];
 const NavbarNew = ({ children }) => {
+  const authToken = localStorage.getItem("authToken");
+  const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
   const [separation, setSeparation] = useState(false);
   const [title, setTitle] = useState(false);
@@ -53,6 +54,14 @@ const NavbarNew = ({ children }) => {
   const [isActiveSecondDonvi_PhongBan, setIsActiveSecondDonvi_PhongBan] =
     useState(false);
   const [isActiveSecondChude, setIsActiveSecondChude] = useState(false);
+  const listCategory = useSelector((state) => state.announce.listCategory);
+  useEffect(() => {
+    dispatch(
+      CallApiGetAllCategory({
+        headers: { authorization: `Bearer ${authToken}` },
+      })
+    );
+  }, []);
   const handleClick = () => {
     if (!isActive) {
       setIsActive(true);
@@ -396,31 +405,36 @@ const NavbarNew = ({ children }) => {
               {isActiveSecondChude ? <FaAngleDown /> : <FaAngleLeft />}
             </div>
           </div>
-          {listChude.map((item, index) => {
-            return (
-              <Link
-                key={index}
-                to={item.path}
-                className="link"
-                style={{
-                  display:
-                    isActiveSecondChude && isActiveSecond ? "flex" : "none",
-                }}
-                onClick={handleClickScroll}
-              >
-                <div
-                  style={{ display: "flex", gap: "15px", paddingLeft: "31px" }}
+          {listCategory.content &&
+            listCategory.content.map((item, index) => {
+              return (
+                <Link
+                  key={index}
+                  to={`/thongbao/chude/${item.id}`}
+                  className="link"
+                  style={{
+                    display:
+                      isActiveSecondChude && isActiveSecond ? "flex" : "none",
+                  }}
+                  onClick={handleClickScroll}
                 >
                   <div
-                    style={{ display: isOpen ? "block" : "none" }}
-                    className="link_text"
+                    style={{
+                      display: "flex",
+                      gap: "15px",
+                      paddingLeft: "31px",
+                    }}
                   >
-                    {item.name}
+                    <div
+                      style={{ display: isOpen ? "block" : "none" }}
+                      className="link_text"
+                    >
+                      {item.categoryName}
+                    </div>
                   </div>
-                </div>
-              </Link>
-            );
-          })}
+                </Link>
+              );
+            })}
           {/* Tất cả thông báo */}
           <Link
             to="/thongbao/all"
