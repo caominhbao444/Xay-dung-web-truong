@@ -9,7 +9,11 @@ const initialState = {
   listDepartment: [],
   listCategory: [],
   updateFaculty: [],
+  updateDepartment: [],
+  updateCategory: [],
   deleteFaculty: [],
+  deleteDepartment: [],
+  deleteCategory: [],
   isLoading: false,
   isFailed: false,
 };
@@ -71,7 +75,7 @@ export const CallApiUpdateFaculty = createAsyncThunk(
   "announce/CallApiUpdateFaculty",
   async function ({ headers, id, facultyName, facultyCode, facultyDesc }) {
     try {
-      const apiUpdateFaculty = await axios.delete(
+      const apiUpdateFaculty = await axios.put(
         `http://localhost:8080/api/faculty/update/${id}`,
         { facultyName, facultyCode, facultyDesc },
         {
@@ -92,7 +96,7 @@ export const CallApiUpdateFaculty = createAsyncThunk(
   }
 );
 
-// ================================================================
+// ============================DEPARTMENT====================================
 //CallApiCreateDepartment
 export const CallApiCreateDepartment = createAsyncThunk(
   "announce/CallApiCreateDepartment",
@@ -123,7 +127,66 @@ export const CallApiCreateDepartment = createAsyncThunk(
     }
   }
 );
+
+//CallApiUpdateDepartment
+export const CallApiUpdateDepartment = createAsyncThunk(
+  "announce/CallApiUpdateDepartment",
+  async function ({
+    headers,
+    id,
+    departCenterName,
+    departCenterCode,
+    departCenterDesc,
+  }) {
+    try {
+      const apiUpdateDepartment = await axios.put(
+        `http://localhost:8080/api/depart-center/update/${id}`,
+        { departCenterName, departCenterCode, departCenterDesc },
+        {
+          headers: {
+            Authorization: headers.authorization,
+            "Content-Type": "application/json",
+            "Accept-Language": "vi;",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Headers": "*",
+            "Access-Control-Expose-Headers": "csrf-token,csrf-session",
+          },
+        }
+      );
+      return apiUpdateDepartment.data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
 // ================================================================
+//CallApiDeleteDepartment
+export const CallApiDeleteDepartment = createAsyncThunk(
+  "announce/CallApiDeleteDepartment",
+  async function ({ headers, id }) {
+    try {
+      const apiDeleteDepartment = await axios.delete(
+        `http://localhost:8080/api/depart-center/delete/${id}`,
+        {
+          headers: {
+            Authorization: headers.authorization,
+            "Content-Type": "application/json",
+            "Accept-Language": "vi;",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Headers": "*",
+            "Access-Control-Expose-Headers": "csrf-token,csrf-session",
+          },
+        }
+      );
+      return apiDeleteDepartment.data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
+//=====================================================================
+// =============================CATEGORY===================================
 //CallApiCreateCategory
 export const CallApiCreateCategory = createAsyncThunk(
   "announce/CallApiCreateCategory",
@@ -149,7 +212,55 @@ export const CallApiCreateCategory = createAsyncThunk(
     }
   }
 );
-
+//CallApiUpdateCategory
+export const CallApiUpdateCategory = createAsyncThunk(
+  "announce/CallApiUpdateCategory",
+  async function ({ headers, id, categoryName, categoryCode, categoryDesc }) {
+    try {
+      const apiUpdateCategory = await axios.put(
+        `http://localhost:8080/api/category/update/${id}`,
+        { categoryName, categoryCode, categoryDesc },
+        {
+          headers: {
+            Authorization: headers.authorization,
+            "Content-Type": "application/json",
+            "Accept-Language": "vi;",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Headers": "*",
+            "Access-Control-Expose-Headers": "csrf-token,csrf-session",
+          },
+        }
+      );
+      return apiUpdateCategory.data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+//CallApiDeleteCategory
+export const CallApiDeleteCategory = createAsyncThunk(
+  "announce/CallApiDeleteCategory",
+  async function ({ headers, id }) {
+    try {
+      const apiDeleteCategory = await axios.delete(
+        `http://localhost:8080/api/category/delete/${id}`,
+        {
+          headers: {
+            Authorization: headers.authorization,
+            "Content-Type": "application/json",
+            "Accept-Language": "vi;",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Headers": "*",
+            "Access-Control-Expose-Headers": "csrf-token,csrf-session",
+          },
+        }
+      );
+      return apiDeleteCategory.data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
 //================================GET ALL==============================
 //CallApiGetAllFaculty
 export const CallApiGetAllFaculty = createAsyncThunk(
@@ -318,6 +429,50 @@ const announceSlice = createSlice({
         state.updateFaculty = action.payload;
       })
       .addCase(CallApiUpdateFaculty.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.error.message;
+      })
+      .addCase(CallApiUpdateDepartment.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(CallApiUpdateDepartment.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.updateDepartment = action.payload;
+      })
+      .addCase(CallApiUpdateDepartment.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.error.message;
+      })
+      .addCase(CallApiDeleteDepartment.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(CallApiDeleteDepartment.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.deleteDepartment = action.payload;
+      })
+      .addCase(CallApiDeleteDepartment.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.error.message;
+      })
+      .addCase(CallApiUpdateCategory.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(CallApiUpdateCategory.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.updateCategory = action.payload;
+      })
+      .addCase(CallApiUpdateCategory.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.error.message;
+      })
+      .addCase(CallApiDeleteCategory.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(CallApiDeleteCategory.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.deleteCategory = action.payload;
+      })
+      .addCase(CallApiDeleteCategory.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.error.message;
       });

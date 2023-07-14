@@ -10,8 +10,9 @@ import {
   CallApiCreateDepartment,
   CallApiCreateCategory,
 } from "../../../../features/announceSlice";
-import CategoryComponent from "../../../../components/Admin/Announce/Category/CategoryComponent";
 
+import DepartmentComponent from "../../../../components/Admin/Announce/Department/DepartmentComponent";
+import FacultyComponent from "../../../../components/Admin/Announce/Faculty/FacultyComponent";
 const Action = () => {
   const [isActive, setIsActive] = React.useState(1);
   const [nameFaculty, setNameFaculty] = React.useState("");
@@ -202,24 +203,25 @@ const Action = () => {
               onClick={() => setIsActive(1)}
               style={{ borderRight: isActive === 1 ? "5px solid #e74c3c" : "" }}
             >
-              <p>Tạo Khoa</p>
+              <p>Khoa</p>
             </div>
             <div
               className="item"
               onClick={() => setIsActive(2)}
               style={{ borderRight: isActive === 2 ? "5px solid #e74c3c" : "" }}
             >
-              <p>Tạo Phòng/Ban</p>
+              <p>Phòng/Ban</p>
             </div>
             <div
               className="item"
               onClick={() => setIsActive(3)}
               style={{ borderRight: isActive === 3 ? "5px solid #e74c3c" : "" }}
             >
-              <p>Tạo Chủ đề</p>
+              <p>Chủ đề</p>
             </div>
           </div>
-          {isActive === 1 && <CategoryComponent />}
+          {isActive === 1 && <FacultyComponent />}
+          {isActive === 2 && <DepartmentComponent />}
           {/* <div className="right">
             {isActive === 1 && (
               <>
