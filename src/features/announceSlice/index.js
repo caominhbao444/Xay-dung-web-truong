@@ -14,7 +14,7 @@ const initialState = {
   isFailed: false,
 };
 
-// ================================================================
+// =============================FACULTY===================================
 //CallApiCreateFaculty
 export const CallApiCreateFaculty = createAsyncThunk(
   "announce/CallApiCreateFaculty",
@@ -60,6 +60,32 @@ export const CallApiDeleteFaculty = createAsyncThunk(
         }
       );
       return apiDeleteFaculty.data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+// ================================================================
+//CallApiUpdateFaculty
+export const CallApiUpdateFaculty = createAsyncThunk(
+  "announce/CallApiUpdateFaculty",
+  async function ({ headers, id, facultyName, facultyCode, facultyDesc }) {
+    try {
+      const apiUpdateFaculty = await axios.delete(
+        `http://localhost:8080/api/faculty/update/${id}`,
+        { facultyName, facultyCode, facultyDesc },
+        {
+          headers: {
+            Authorization: headers.authorization,
+            "Content-Type": "application/json",
+            "Accept-Language": "vi;",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Headers": "*",
+            "Access-Control-Expose-Headers": "csrf-token,csrf-session",
+          },
+        }
+      );
+      return apiUpdateFaculty.data;
     } catch (error) {
       console.log(error);
     }
@@ -123,7 +149,8 @@ export const CallApiCreateCategory = createAsyncThunk(
     }
   }
 );
-//==============================================================
+
+//================================GET ALL==============================
 //CallApiGetAllFaculty
 export const CallApiGetAllFaculty = createAsyncThunk(
   "announce/CallApiGetAllFaculty",
@@ -280,6 +307,17 @@ const announceSlice = createSlice({
         state.listCategory = action.payload;
       })
       .addCase(CallApiGetAllCategory.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.error.message;
+      })
+      .addCase(CallApiUpdateFaculty.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(CallApiUpdateFaculty.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.updateFaculty = action.payload;
+      })
+      .addCase(CallApiUpdateFaculty.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.error.message;
       });
