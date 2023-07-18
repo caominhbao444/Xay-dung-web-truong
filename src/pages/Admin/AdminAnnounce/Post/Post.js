@@ -9,6 +9,8 @@ import {
   CallApiGetAllFaculty,
   CallApiGetAllDepartment,
   CallApiGetAllCategory,
+  CallApiGetListFaculty,
+  CallApiGetListDepartment,
 } from "../../../../features/announceSlice";
 import { useDispatch, useSelector } from "react-redux";
 const Post = () => {
@@ -17,8 +19,12 @@ const Post = () => {
   const [location, setLocation] = useState("Khoa");
   const dispatch = useDispatch();
   const authToken = localStorage.getItem("authToken");
-  const listFaculty = useSelector((state) => state.announce.listFaculty);
-  const listDepartment = useSelector((state) => state.announce.listDepartment);
+  const listNameFaculty = useSelector(
+    (state) => state.announce.listNameFaculty
+  );
+  const listNameDepartment = useSelector(
+    (state) => state.announce.listNameDepartment
+  );
   const listCategory = useSelector((state) => state.announce.listCategory);
   const config = useMemo(
     () => ({
@@ -29,13 +35,13 @@ const Post = () => {
   useEffect(() => {
     if (location === "Khoa") {
       dispatch(
-        CallApiGetAllFaculty({
+        CallApiGetListFaculty({
           headers: { authorization: `Bearer ${authToken}` },
         })
       );
     } else if (location === "Phong") {
       dispatch(
-        CallApiGetAllDepartment({
+        CallApiGetListDepartment({
           headers: { authorization: `Bearer ${authToken}` },
         })
       );
@@ -143,13 +149,15 @@ const Post = () => {
                   Chọn Khoa/Phòng ban
                 </option>
                 {location === "Khoa" &&
-                  listFaculty.content &&
-                  listFaculty.content.map((item, index) => {
+                  listNameFaculty &&
+                  listNameFaculty.content &&
+                  listNameFaculty.content.map((item, index) => {
                     return <option key={item.id}>{item.facultyName}</option>;
                   })}
                 {location === "Phong" &&
-                  listDepartment.content &&
-                  listDepartment.content.map((item, index) => {
+                  listNameDepartment &&
+                  listNameDepartment.content &&
+                  listNameDepartment.content.map((item, index) => {
                     return (
                       <option key={item.id}>{item.departCenterName}</option>
                     );

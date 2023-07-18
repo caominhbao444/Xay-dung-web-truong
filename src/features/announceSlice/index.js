@@ -6,8 +6,11 @@ const initialState = {
   createDepartment: [],
   createCategory: [],
   listFaculty: [],
+  listNameFaculty: [],
   listDepartment: [],
+  listNameDepartment: [],
   listCategory: [],
+  listCategoryPagination: [],
   updateFaculty: [],
   updateDepartment: [],
   updateCategory: [],
@@ -90,6 +93,29 @@ export const CallApiUpdateFaculty = createAsyncThunk(
         }
       );
       return apiUpdateFaculty.data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+export const CallApiGetListFaculty = createAsyncThunk(
+  "announce/CallApiGetListFaculty",
+  async function ({ headers }) {
+    try {
+      const apiListFaculty = await axios.get(
+        `http://localhost:8080/api/faculty/all`,
+        {
+          headers: {
+            Authorization: headers.authorization,
+            "Content-Type": "application/json",
+            "Accept-Language": "vi;",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Headers": "*",
+            "Access-Control-Expose-Headers": "csrf-token,csrf-session",
+          },
+        }
+      );
+      return apiListFaculty.data;
     } catch (error) {
       console.log(error);
     }
@@ -184,7 +210,30 @@ export const CallApiDeleteDepartment = createAsyncThunk(
     }
   }
 );
-
+//CallApiGetListDepartment
+export const CallApiGetListDepartment = createAsyncThunk(
+  "announce/CallApiGetListDepartment",
+  async function ({ headers }) {
+    try {
+      const apiListDepartment = await axios.get(
+        `http://localhost:8080/api/depart-center/all`,
+        {
+          headers: {
+            Authorization: headers.authorization,
+            "Content-Type": "application/json",
+            "Accept-Language": "vi;",
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Headers": "*",
+            "Access-Control-Expose-Headers": "csrf-token,csrf-session",
+          },
+        }
+      );
+      return apiListDepartment.data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
 //=====================================================================
 // =============================CATEGORY===================================
 //CallApiCreateCategory
@@ -265,10 +314,10 @@ export const CallApiDeleteCategory = createAsyncThunk(
 //CallApiGetAllFaculty
 export const CallApiGetAllFaculty = createAsyncThunk(
   "announce/CallApiGetAllFaculty",
-  async function ({ headers }) {
+  async function ({ headers, pageNumber }) {
     try {
       const apiGetAllFaculty = await axios.get(
-        `http://localhost:8080/api/faculty/all`,
+        `http://localhost:8080/api/faculty/all?pageNumber=${pageNumber}&pageSize=10`,
 
         {
           headers: {
@@ -291,10 +340,10 @@ export const CallApiGetAllFaculty = createAsyncThunk(
 //CallApiGetAllDepartment
 export const CallApiGetAllDepartment = createAsyncThunk(
   "announce/CallApiGetAllDepartment",
-  async function ({ headers }) {
+  async function ({ headers, pageNumber }) {
     try {
       const apiGetAllDepartment = await axios.get(
-        `http://localhost:8080/api/depart-center/all`,
+        `http://localhost:8080/api/depart-center/all?pageNumber=${pageNumber}&pageSize=10`,
 
         {
           headers: {
@@ -473,6 +522,28 @@ const announceSlice = createSlice({
         state.deleteCategory = action.payload;
       })
       .addCase(CallApiDeleteCategory.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.error.message;
+      })
+      .addCase(CallApiGetListFaculty.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(CallApiGetListFaculty.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.listNameFaculty = action.payload;
+      })
+      .addCase(CallApiGetListFaculty.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.error.message;
+      })
+      .addCase(CallApiGetListDepartment.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(CallApiGetListDepartment.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.listNameDepartment = action.payload;
+      })
+      .addCase(CallApiGetListDepartment.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.error.message;
       });

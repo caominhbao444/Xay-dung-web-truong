@@ -3,6 +3,7 @@ import "./DepartmentComponent.scss";
 import { styled } from "@mui/material/styles";
 import { FaPen, FaRemoveFormat, FaTrash } from "react-icons/fa";
 import Swal from "sweetalert2";
+import Pagination from "@mui/material/Pagination";
 import { useDispatch, useSelector } from "react-redux";
 import Dialog from "@mui/material/Dialog";
 import {
@@ -138,6 +139,9 @@ const DepartmentComponent = () => {
   const [editName, setEditName] = React.useState("");
   const [editCode, setEditCode] = React.useState("");
   const [editDesc, setEditDesc] = React.useState("");
+  const [numberPage, setNumberPage] = React.useState(0);
+  const [pagination, setPagination] = React.useState(false);
+  const [page, setPage] = React.useState(0);
   const [open, setOpen] = React.useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const dispatch = useDispatch();
@@ -168,6 +172,7 @@ const DepartmentComponent = () => {
         dispatch(
           CallApiGetAllDepartment({
             headers: { authorization: `Bearer ${authToken}` },
+            pageNumber: page,
           })
         );
       })
@@ -196,6 +201,7 @@ const DepartmentComponent = () => {
         dispatch(
           CallApiGetAllDepartment({
             headers: { authorization: `Bearer ${authToken}` },
+            pageNumber: page,
           })
         );
       })
@@ -231,6 +237,7 @@ const DepartmentComponent = () => {
         dispatch(
           CallApiGetAllDepartment({
             headers: { authorization: `Bearer ${authToken}` },
+            pageNumber: page,
           })
         );
       })
@@ -249,13 +256,47 @@ const DepartmentComponent = () => {
     setOpen(false);
     setEdit(false);
   };
+  const handleChange = (event, value) => {
+    setPage(value - 1);
+    setPagination(true);
+  };
+  React.useEffect(() => {
+    if (pagination) {
+      dispatch(
+        CallApiGetAllDepartment({
+          headers: { authorization: `Bearer ${authToken}` },
+          pageNumber: page,
+        })
+      );
+    }
+  }, [page]);
   React.useEffect(() => {
     dispatch(
       CallApiGetAllDepartment({
         headers: { authorization: `Bearer ${authToken}` },
+        pageNumber: page,
       })
     );
   }, []);
+  React.useEffect(() => {
+    if (listDepartment) {
+      setNumberPage(listDepartment.totalPages);
+      if (listDepartment) {
+        setNumberPage(listDepartment.totalPages);
+        if (
+          listDepartment.numberOfElements === 0 &&
+          listDepartment.totalPages > 0
+        ) {
+          dispatch(
+            CallApiGetAllDepartment({
+              headers: { authorization: `Bearer ${authToken}` },
+              pageNumber: page - 1,
+            })
+          );
+        }
+      }
+    }
+  }, [listDepartment]);
   return (
     <>
       <div className="right-second">
@@ -304,7 +345,15 @@ const DepartmentComponent = () => {
             Không có dữ liệu
           </td>
         </tr> */}
-            {listDepartment.content &&
+            {listDepartment && listDepartment.numberOfElements === 0 && (
+              <tr>
+                <td colSpan="5" style={{ textAlign: "center" }}>
+                  Không có dữ liệu
+                </td>
+              </tr>
+            )}
+            {listDepartment.numberOfElements !== 0 &&
+              listDepartment.content &&
               listDepartment.content.map((item, index) => {
                 return (
                   <React.Fragment key={index + 1}>
@@ -458,6 +507,14 @@ const DepartmentComponent = () => {
             </Dialog>
           </tbody>
         </table>
+        {listDepartment && (
+          <Pagination
+            count={numberPage}
+            page={page + 1}
+            onChange={handleChange}
+            style={{ display: "flex", justifyContent: "center" }}
+          />
+        )}
       </div>
     </>
   );

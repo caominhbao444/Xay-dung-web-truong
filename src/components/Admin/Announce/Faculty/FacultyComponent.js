@@ -17,6 +17,7 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  Pagination,
   TextField,
 } from "@mui/material";
 const BootstrapButton = styled(Button)({
@@ -138,6 +139,9 @@ const CategoryComponent = () => {
   const [editName, setEditName] = React.useState("");
   const [editCode, setEditCode] = React.useState("");
   const [editDesc, setEditDesc] = React.useState("");
+  const [numberPage, setNumberPage] = React.useState(0);
+  const [pagination, setPagination] = React.useState(false);
+  const [page, setPage] = React.useState(0);
   const [open, setOpen] = React.useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const dispatch = useDispatch();
@@ -148,9 +152,9 @@ const CategoryComponent = () => {
     dispatch(
       CallApiCreateFaculty({
         headers: { authorization: `Bearer ${authToken}` },
-        facultyName: editName,
-        facultyCode: editCode,
-        facultyDesc: editDesc,
+        facultyName: nameFaculty,
+        facultyCode: nameShortFaculty,
+        facultyDesc: descFaculty,
       })
     )
       .then(() => {
@@ -168,6 +172,7 @@ const CategoryComponent = () => {
         dispatch(
           CallApiGetAllFaculty({
             headers: { authorization: `Bearer ${authToken}` },
+            pageNumber: page,
           })
         );
       })
@@ -196,6 +201,7 @@ const CategoryComponent = () => {
         dispatch(
           CallApiGetAllFaculty({
             headers: { authorization: `Bearer ${authToken}` },
+            pageNumber: page,
           })
         );
       })
@@ -231,6 +237,7 @@ const CategoryComponent = () => {
         dispatch(
           CallApiGetAllFaculty({
             headers: { authorization: `Bearer ${authToken}` },
+            pageNumber: page,
           })
         );
       })
@@ -249,16 +256,42 @@ const CategoryComponent = () => {
     setOpen(false);
     setEdit(false);
   };
+  const handleChange = (event, value) => {
+    setPage(value - 1);
+    setPagination(true);
+  };
+  React.useEffect(() => {
+    if (pagination) {
+      dispatch(
+        CallApiGetAllFaculty({
+          headers: { authorization: `Bearer ${authToken}` },
+          pageNumber: page,
+        })
+      );
+    }
+  }, [page]);
   React.useEffect(() => {
     dispatch(
       CallApiGetAllFaculty({
         headers: { authorization: `Bearer ${authToken}` },
+        pageNumber: page,
       })
     );
   }, []);
-  if (listFaculty) {
-    console.log("listFaculty", listFaculty.totalPages);
-  }
+  React.useEffect(() => {
+    if (listFaculty) {
+      setNumberPage(listFaculty.totalPages);
+      console.log(listFaculty);
+      if (listFaculty.numberOfElements === 0 && listFaculty.totalPages > 0) {
+        dispatch(
+          CallApiGetAllFaculty({
+            headers: { authorization: `Bearer ${authToken}` },
+            pageNumber: page - 1,
+          })
+        );
+      }
+    }
+  }, [listFaculty]);
   return (
     <>
       <div className="right">
@@ -307,7 +340,15 @@ const CategoryComponent = () => {
                 Không có dữ liệu
               </td>
             </tr> */}
-            {listFaculty.content &&
+            {listFaculty && listFaculty.numberOfElements === 0 && (
+              <tr>
+                <td colSpan="5" style={{ textAlign: "center" }}>
+                  Không có dữ liệu
+                </td>
+              </tr>
+            )}
+            {listFaculty.numberOfElements !== 0 &&
+              listFaculty.content &&
               listFaculty.content.map((item, index) => {
                 return (
                   <React.Fragment key={index + 1}>
@@ -461,6 +502,14 @@ const CategoryComponent = () => {
             </Dialog>
           </tbody>
         </table>
+        {listFaculty && (
+          <Pagination
+            count={numberPage}
+            page={page + 1}
+            onChange={handleChange}
+            style={{ display: "flex", justifyContent: "center" }}
+          />
+        )}
       </div>
     </>
   );
